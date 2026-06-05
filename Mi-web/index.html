@@ -45,7 +45,7 @@
       <p class="hero-subtitle reveal">
         Un entrenamiento mental de 30 días para transformar la culpa, el cansancio y la impaciencia — y sostener a tus hijos desde un lugar real
       </p>
-      <a href="#oferta" class="btn-primary reveal" id="hero-cta">Quiero saber más</a>
+      <a href="#problema" class="btn-primary reveal" id="hero-cta">Quiero saber más</a>
     </div>
   </section>
 
@@ -442,25 +442,6 @@
   <!-- Script principal con cache-buster -->
   <script defer src="script.js?v=20260604"></script>
 
-  <!-- Diagnóstico temporal de imágenes — borrar después -->
-  <script>
-    window.addEventListener('load', function() {
-      var imgs = [
-        { id: 'hero-bg', src: 'assets/img/hero-image.jpg', type: 'hero (fondo)' },
-        { id: 'seba-img', src: 'assets/img/seba-foto.jpg', type: 'seba' }
-      ];
-      imgs.forEach(function(img) {
-        var tester = new Image();
-        tester.onload = function() {
-          console.log('✅ CARGA OK: ' + img.type + ' (' + img.src + ') — ' + tester.naturalWidth + 'x' + tester.naturalHeight + 'px');
-        };
-        tester.onerror = function() {
-          console.error('❌ ERROR: ' + img.type + ' no carga — ' + window.location.origin + '/' + img.src);
-        };
-        tester.src = img.src;
-      });
-    });
-  </script>
 
 </body>
 </html>
