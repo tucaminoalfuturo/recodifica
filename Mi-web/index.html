@@ -1,387 +1,829 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- SEO -->
-  <title>Recodifica tu Reactividad — Sebastián Baracco</title>
-  <meta name="description" content="Un entrenamiento mental de 30 días para transformar la Ira, la Impaciencia y la Culpa en Calma y Amor. Creado por Sebastián Baracco, mentor de familias conscientes." />
-  <meta property="og:title" content="Recodifica tu Reactividad" />
-  <meta property="og:description" content="Aprender a sanar las emociones del pasado es lo que te va a llevar a vivir una maternidad en calma, presencia y conexión." />
-  <meta property="og:image" content="assets/img/hero-image.jpg" />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary_large_image" />
-
-  <!-- Google Fonts: Montserrat -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet" />
-
-  <!-- Favicon -->
-  <link rel="icon" href="assets/img/favicon.png" type="image/png" />
-  <link rel="apple-touch-icon" href="assets/img/favicon.png" />
-
-  <link rel="stylesheet" href="styles.css?v=20260605" />
-</head>
-<body>
-
-  <!-- ================================================================
-       1. HERO
-  ================================================================ -->
-  <section class="hero" id="hero">
-    <div class="hero-bg" style="background-image: url('assets/img/hero-image.jpg')"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <p class="hero-eyebrow hero-badge reveal">COMENZAMOS EL 14 DE OCTUBRE</p>
-      <h1 class="hero-title reveal">
-        Aprender a sanar las emociones del pasado es lo que te va a llevar a vivir una maternidad en calma, presencia y conexión
-      </h1>
-      <p class="hero-subtitle reveal">
-        Un entrenamiento mental de 30 días para transformar la Ira, la Impaciencia y la Culpa en Calma y Amor para sostener a tus hijos desde un lugar Real
-      </p>
-      <a href="#problema" class="btn-primary reveal" id="hero-cta">Quiero saber más</a>
-    </div>
-  </section>
-
-
-  <!-- ================================================================
-       2. EL PROBLEMA
-  ================================================================ -->
-  <section class="section problema" id="problema">
-    <div class="container container-narrow">
-      <h2 class="section-title reveal">¿Te suena familiar?</h2>
-      <div class="prose">
-        <p class="reveal">Ya conocés esa culpa de la noche, cuando todo se calmó, los chicos duermen y vos te quedás pensando en cómo reaccionaste..</p>
-        <p class="reveal">Prometiste que iba a ser diferente, y realmente querés que lo sea</p>
-        <p class="reveal">Pero hay algo que sigue apareciendo justo cuando más querés frenarlo. Y no es porque no hayas intentado, es porque nadie te mostró dónde realmente vive ese patrón</p>
+<!doctype html>
+<html lang="es-UY">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Recodificá tu Reactividad — Sebastián Sbaracco</title>
+    <meta
+      name="description"
+      content="Un entrenamiento mental de 30 días para comprender el origen de tu reactividad y aprender a guiar a tus hijos desde la calma y la presencia. Segunda edición con Sebastián Sbaracco."
+    />
+    <meta
+      property="og:title"
+      content="Recodificá tu Reactividad — Segunda edición"
+    />
+    <meta
+      property="og:description"
+      content="Un proceso de entrenamiento interior, no otro curso de crianza. 30 días de práctica y acompañamiento con Sebastián Sbaracco."
+    />
+    <meta property="og:image" content="assets/img/hero-image.jpg" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#F2EEE8" />
+    <link
+      rel="preload"
+      href="assets/fonts/montserrat-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="assets/img/hero-image.webp"
+      fetchpriority="high"
+    />
+    <link rel="icon" href="assets/img/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="assets/img/favicon.png" />
+    <link rel="stylesheet" href="styles.css?v=segunda-edicion-1" />
+    <script defer src="config.js?v=segunda-edicion-1"></script>
+    <script defer src="script.js?v=segunda-edicion-1"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <header class="site-header container">
+      <a
+        class="wordmark"
+        href="#hero"
+        aria-label="Recodificá tu Reactividad, inicio"
+        >recodificá<span>tu reactividad</span></a
+      >
+      <nav aria-label="Navegación principal">
+        <a href="#video-entrenamiento">El entrenamiento</a
+        ><a href="#planes" class="nav-enroll"
+          >Inscribirme
+          <svg viewBox="0 0 24 24" class="arrow-icon" aria-hidden="true">
+            <path d="M5 19 19 5M5 5h14v14" /></svg
+        ></a>
+      </nav>
+    </header>
+    <main id="contenido">
+      <section class="hero container" id="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="edition">
+            <span class="edition-dot" aria-hidden="true"></span>SEGUNDA EDICIÓN
+            · COMENZAMOS EL
+            <time id="edition-date" datetime="2026-10-14">14 DE OCTUBRE</time>
+          </p>
+          <h1 id="hero-title">
+            Tus hijos no necesitan que seas una madre perfecta.
+            <span>Necesitan que dejes de luchar con tu propia historia.</span>
+          </h1>
+          <p class="hero-subtitle">
+            Un entrenamiento mental de 30 días para comprender el origen de tu
+            reactividad, aprender a sanarla desde su raíz y aprender a guiar a
+            tus hijos desde la calma y la presencia.
+          </p>
+          <a href="#video-entrenamiento" class="button" id="hero-cta"
+            >CONOCÉ EL ENTRENAMIENTO
+            <svg viewBox="0 0 24 24" class="arrow-icon" aria-hidden="true">
+              <path d="M12 4v16m-6-6 6 6 6-6" /></svg
+          ></a>
+          <p class="hero-note">
+            Un proceso de entrenamiento interior, no otro curso de crianza.
+          </p>
+        </div>
+        <div class="hero-photo">
+          <picture
+            ><source srcset="assets/img/hero-image.webp" type="image/webp" />
+            <img
+              src="assets/img/hero-image.jpg"
+              alt="Una madre abraza a su hijo"
+              width="1122"
+              height="1402"
+              fetchpriority="high" /></picture
+          ><span class="photo-caption">Un nuevo comienzo, desde adentro.</span>
+        </div>
+      </section>
+      <section
+        class="section video-section"
+        id="video-entrenamiento"
+        aria-labelledby="video-title"
+      >
+        <div class="container video-container">
+          <div class="section-heading centered">
+            <p class="eyebrow">30 DÍAS PARA VOLVER A VOS</p>
+            <h2 id="video-title">Conocé el entrenamiento</h2>
+            <p>
+              Quiero contarte cómo vamos a trabajar durante estos 30 días y por
+              qué este entrenamiento propone un camino diferente para
+              transformar tu reactividad.
+            </p>
+          </div>
+          <div class="video-frame">
+            <wistia-player
+              media-id="ruy9yzgati"
+              aspect="1.7777777777777777"
+              auto-play="false"
+              player-color="#808B6D"
+              aria-label="Presentación del entrenamiento por Sebastián Sbaracco"
+            ></wistia-player>
+          </div>
+          <p class="video-note">
+            Unos 20 minutos para conocer el camino que vamos a recorrer.
+          </p>
+          <p id="video-error" class="video-error" hidden>
+            No pudimos cargar el video.
+            <a
+              href="https://fast.wistia.com/embed/iframe/ruy9yzgati"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Abrir el video en Wistia</a
+            >
+          </p>
+          <noscript
+            ><p>
+              <a href="https://fast.wistia.com/embed/iframe/ruy9yzgati"
+                >Ver el video en Wistia</a
+              >
+              (el reproductor integrado necesita JavaScript).
+            </p></noscript
+          >
+        </div>
+      </section>
+      <section
+        class="section objection"
+        id="el-camino"
+        aria-labelledby="objection-title"
+      >
+        <div class="container editorial-grid">
+          <div>
+            <p class="eyebrow">DE COMPRENDER A TRANSFORMAR</p>
+            <h2 id="objection-title">
+              ¿Y si el problema no fuera que te falta información, sino que no
+              sabés aplicarla y sostenerla en el tiempo?
+            </h2>
+          </div>
+          <div class="prose">
+            <p>
+              Quizás ya leíste libros, hiciste cursos, fuiste a terapia o
+              tuviste sesiones de acompañamiento.
+            </p>
+            <p>
+              Sabés cómo querés tratar a tus hijos. Sabés que gritar no es lo
+              que querés. Y aun así, cuando algo te desborda, volvés a
+              reaccionar de maneras que después te duelen.
+            </p>
+            <p>
+              Porque comprender lo que te pasa no siempre es suficiente para
+              transformar lo que sentís y cómo respondés.
+            </p>
+            <div class="editorial-callout">
+              <p>
+                <strong
+                  >Por eso esto no es simplemente otro curso de crianza.</strong
+                >
+              </p>
+              <p>
+                Es un entrenamiento mental de 30 días donde vas a aprender a
+                reconocer y vaciar tu vasija emocional, practicar la liberación
+                de emociones acumuladas y transformar las percepciones internas
+                que alimentan tus reacciones.
+              </p>
+            </div>
+            <p>
+              No se trata de reprimir lo que sentís ni de obligarte a tener más
+              paciencia. Se trata de entrenar una nueva manera de relacionarte
+              con tus emociones, con vos misma y con tus hijos.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="section foundation" aria-labelledby="foundation-title">
+        <div class="container narrow centered">
+          <p class="eyebrow">EL FUNDAMENTO DE NUESTRO ENTRENAMIENTO</p>
+          <h2 id="foundation-title">
+            No se trata solamente de cambiar tu comportamiento. Se trata de
+            elevar tu nivel de conciencia.
+          </h2>
+          <div class="prose">
+            <p>
+              Una misma situación con tus hijos puede vivirse desde la ira, el
+              miedo o la culpa, pero también desde la aceptación, la calma y el
+              amor.
+            </p>
+            <p>
+              Inspirados en el Mapa de la Conciencia del Dr. David Hawkins,
+              vamos a aprender a reconocer desde qué estado emocional estás
+              interpretando tu realidad.
+            </p>
+            <p>
+              A través de prácticas de conciencia, liberación emocional y
+              transformación de percepciones, vas a entrenar nuevas formas de
+              responder a las situaciones cotidianas.
+            </p>
+          </div>
+          <p class="closing-thought">
+            <em
+              >Cuando cambia tu manera de percibir, también puede cambiar tu
+              manera de responder.</em
+            >
+          </p>
+        </div>
+      </section>
+      <section
+        class="section method"
+        id="metodo"
+        aria-labelledby="method-title"
+      >
+        <div class="container">
+          <div class="editorial-grid">
+            <div>
+              <p class="eyebrow">UN ENTRENAMIENTO DIFERENTE</p>
+              <h2 id="method-title">
+                No necesitás aprender a controlar tus reacciones. Necesitás
+                aprender a transformar lo que las origina.
+              </h2>
+            </div>
+            <div class="prose">
+              <p>
+                Durante 30 días vamos a entrenar tu mente para que puedas
+                reconocer los patrones automáticos que condicionan tus
+                respuestas y comenzar a transformarlos desde su raíz.
+              </p>
+              <p>
+                Vas a aprender a reconocer tu estado de conciencia, vaciar tu
+                vasija emocional mediante prácticas de liberación y cambiar las
+                percepciones internas desde las que interpretás lo que sucede
+                con tus hijos.
+              </p>
+              <p>
+                Porque el objetivo no es que tengas que esforzarte
+                constantemente para no gritar, sino desarrollar una nueva manera
+                de percibir, sentir y responder.
+              </p>
+              <p class="closing-thought">
+                <em
+                  >No vamos a entrenar solamente lo que hacés. Vamos a trabajar
+                  sobre el estado interior desde el que actuás.</em
+                >
+              </p>
+            </div>
+          </div>
+          <div class="practice-bridge">
+            <h3>¿Por qué un entrenamiento y no simplemente un curso?</h3>
+            <div>
+              <p>
+                Porque no alcanza con saber qué hacer. Necesitás practicarlo
+                hasta desarrollar nuevas formas de responder.
+              </p>
+              <p>
+                Durante 30 días vas a entrenar tu mente, tus percepciones y tus
+                respuestas emocionales para llevar lo aprendido a tu vida
+                cotidiana y poder continuar el proceso de manera autónoma.
+              </p>
+            </div>
+          </div>
+          <div class="stages" aria-label="Las tres etapas del entrenamiento">
+            <article class="stage-card">
+              <p class="eyebrow">
+                ETAPA 01<span class="stage-symbol" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9" /></svg
+                ></span>
+              </p>
+              <h3>RECONOCER</h3>
+              <p class="card-lead">Dejá de vivir en piloto automático.</p>
+              <p>
+                Aprendé a observar tus reacciones, identificar las emociones
+                acumuladas y reconocer desde qué estado de conciencia estás
+                interpretando las situaciones que vivís con tus hijos.
+              </p>
+              <p class="stage-ending">
+                El primer paso para transformar un patrón es poder verlo
+                mientras sucede.
+              </p>
+            </article>
+            <article class="stage-card">
+              <p class="eyebrow">
+                ETAPA 02<span class="stage-symbol" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 3v9h9" /></svg
+                ></span>
+              </p>
+              <h3>LIBERAR</h3>
+              <p class="card-lead">Aprendé a vaciar tu vasija emocional.</p>
+              <p>
+                A través de prácticas de liberación emocional vas a aprender a
+                soltar los estados emocionales que sostienen tu identidad
+                reactiva, para comenzar a programar tu Identidad Creadora y
+                cultivar estados de conciencia más elevados.
+              </p>
+              <p class="stage-ending">
+                En lugar de reprimir lo que sentís o luchar contra ello, vas a
+                aprender a reconocerlo, permitirlo y procesarlo.
+              </p>
+            </article>
+            <article class="stage-card">
+              <p class="eyebrow">
+                ETAPA 03<span class="stage-symbol" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="5" />
+                    <path
+                      d="M12 1v3m0 16v3M1 12h3m16 0h3M4 4l2 2m12 12 2 2M4 20l2-2M18 6l2-2"
+                    /></svg
+                ></span>
+              </p>
+              <h3>TRANSFORMAR</h3>
+              <p class="card-lead">
+                Una nueva percepción, una nueva forma de responder.
+              </p>
+              <p>
+                Vas a entrenar nuevas interpretaciones y respuestas ante las
+                situaciones que antes despertaban tu reactividad.
+              </p>
+              <p class="stage-ending">
+                El propósito es que puedas trasladar este aprendizaje a tu vida
+                cotidiana y continuar practicándolo por tu cuenta después de los
+                30 días.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section
+        class="section includes"
+        id="incluye"
+        aria-labelledby="includes-title"
+      >
+        <div class="container">
+          <div class="section-heading centered">
+            <p class="eyebrow">TODO LO QUE VAS A RECIBIR</p>
+            <h2 id="includes-title">
+              30 días de entrenamiento.<br />Herramientas para toda la vida.
+            </h2>
+            <p>
+              Un proceso guiado para entrenar tu mente, transformar tus patrones
+              y llevar una nueva forma de responder a tu vida cotidiana.
+            </p>
+            <p class="small-label">INCLUIDO EN AMBOS PLANES</p>
+          </div>
+          <div class="resources">
+            <article class="resource-card">
+              <span class="resource-icon" aria-hidden="true"
+                ><svg viewBox="0 0 24 24">
+                  <path
+                    d="M4 14v-3a8 8 0 0 1 16 0v3M4 13H2v7h5v-7H4Zm16 0h2v7h-5v-7h3Z"
+                  /></svg
+              ></span>
+              <h3>Audios diarios de poder</h3>
+              <p>
+                Cada día recibirás en Telegram un audio para entrenar tu mente y
+                transformar tus patrones desde adentro.
+              </p>
+            </article>
+            <article class="resource-card">
+              <span class="resource-icon" aria-hidden="true"
+                ><svg viewBox="0 0 24 24">
+                  <path d="M20 15A9 9 0 0 1 9 4 9 9 0 1 0 20 15Z" /></svg
+              ></span>
+              <h3>Audio de Hipnosis Transformacional</h3>
+              <p>
+                Un audio nocturno diseñado para trabajar con tu subconsciente y
+                acompañar la transformación de tus creencias.
+              </p>
+            </article>
+            <article class="resource-card">
+              <span class="resource-icon" aria-hidden="true"
+                ><svg viewBox="0 0 24 24">
+                  <rect x="2" y="6" width="14" height="13" rx="2" />
+                  <path d="m16 10 6-3v11l-6-3" /></svg
+              ></span>
+              <h3>4 sesiones en vivo por YouTube</h3>
+              <p>
+                Encuentros con enseñanzas, herramientas prácticas y espacio de
+                preguntas y respuestas. Las sesiones quedarán grabadas.
+              </p>
+            </article>
+            <article class="resource-card">
+              <span class="resource-icon" aria-hidden="true"
+                ><svg viewBox="0 0 24 24">
+                  <path
+                    d="M5 3h15v18H5a2 2 0 0 1 0-4h15M5 3a2 2 0 0 0-2 2v14M8 7h8M8 11h6"
+                  /></svg
+              ></span>
+              <h3>Workbook de transformación</h3>
+              <p>
+                Prácticas activas para reconocer, explorar y trabajar tus
+                emociones sin juicio ni culpa.
+              </p>
+            </article>
+            <article class="resource-card">
+              <span class="resource-icon" aria-hidden="true"
+                ><svg viewBox="0 0 24 24">
+                  <circle cx="9" cy="7" r="3" />
+                  <path
+                    d="M2 21v-3a7 7 0 0 1 14 0v3M17 4a3 3 0 0 1 0 6M19 14a6 6 0 0 1 3 5v2"
+                  /></svg
+              ></span>
+              <h3>Grupo privado de Telegram</h3>
+              <p>
+                Un espacio de acompañamiento durante los 30 días, junto a otras
+                familias que están recorriendo el mismo camino.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section
+        class="section mentor"
+        id="mentor"
+        aria-labelledby="mentor-title"
+      >
+        <div class="container mentor-grid">
+          <picture class="mentor-photo"
+            ><source srcset="assets/img/seba-foto.webp" type="image/webp" />
+            <img
+              src="assets/img/seba-foto.jpg"
+              alt="Sebastián Sbaracco, mentor de familias conscientes"
+              width="1122"
+              height="1402"
+              loading="lazy"
+              decoding="async"
+          /></picture>
+          <div>
+            <p class="eyebrow">QUIEN TE ACOMPAÑA EN ESTE CAMINO</p>
+            <h2 id="mentor-title">Sebastián Sbaracco</h2>
+            <p class="mentor-role">Mentor de familias conscientes</p>
+            <div class="prose">
+              <p>
+                Llevo más de 5 años acompañando procesos de transformación
+                interior en familias de todo el mundo. Más de 1500 sesiones
+                individuales.
+              </p>
+              <p>
+                Creé la Recodificación del Ser, un método que combina
+                neurociencia, espiritualidad y acompañamiento para trabajar los
+                patrones en la mente, el cuerpo y la energía.
+              </p>
+              <p>
+                No enseño técnicas para aguantar más. Acompaño procesos para que
+                el cambio sea real, profundo y sostenido.
+              </p>
+            </div>
+            <div class="mentor-pillars">
+              <span>Neurociencia</span><span>Espiritualidad</span
+              ><span>Acompañamiento real</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section
+        class="section testimonials"
+        id="testimonios"
+        aria-labelledby="testimonials-title"
+      >
+        <div class="container">
+          <div class="carousel-heading">
+            <div class="section-heading">
+              <p class="eyebrow">HISTORIAS REALES</p>
+              <h2 id="testimonials-title">
+                Ellas ya comenzaron a transformar su historia
+              </h2>
+              <p>
+                Experiencias compartidas por madres que participaron del
+                entrenamiento.
+              </p>
+            </div>
+            <div class="carousel-controls" hidden>
+              <button
+                type="button"
+                class="icon-button"
+                id="testimonials-prev"
+                aria-label="Testimonio anterior"
+                aria-controls="testimonials-track"
+              >
+                <svg viewBox="0 0 24 24" class="arrow-icon" aria-hidden="true">
+                  <path d="M20 12H4m6-6-6 6 6 6" />
+                </svg></button
+              ><button
+                type="button"
+                class="icon-button"
+                id="testimonials-next"
+                aria-label="Testimonio siguiente"
+                aria-controls="testimonials-track"
+              >
+                <svg viewBox="0 0 24 24" class="arrow-icon" aria-hidden="true">
+                  <path d="M4 12h16m-6-6 6 6-6 6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="testimonials-track"
+            id="testimonials-track"
+            tabindex="0"
+            role="region"
+            aria-roledescription="carrusel"
+            aria-label="Testimonios, desplazá para ver más"
+          >
+            <article class="testimonial-card" data-testimonial="0">
+              <p class="eyebrow">TRANSFORMACIÓN PROFUNDA</p>
+              <blockquote>
+                «Entré pensando que iba a aprender sobre maternidad, pero salgo
+                con una transformación mucho más profunda».
+              </blockquote>
+            </article>
+            <article class="testimonial-card" data-testimonial="1">
+              <p class="eyebrow">RECONEXIÓN PERSONAL</p>
+              <blockquote>
+                «Yo llegué creyendo que tenía que aprender a criar mejor a mi
+                hijo, pero terminé encontrándome a mí misma».
+              </blockquote>
+            </article>
+            <article class="testimonial-card" data-testimonial="2">
+              <p class="eyebrow">AMOR Y COMPASIÓN</p>
+              <blockquote>
+                «Este entrenamiento te hace volver a mirarte con ojos de amor y
+                compasión».
+              </blockquote>
+            </article>
+            <article class="testimonial-card" data-testimonial="3">
+              <p class="eyebrow">TRANSFORMACIÓN FAMILIAR</p>
+              <blockquote>
+                «Cuando una mamá sana, toda la familia comienza a
+                transformarse».
+              </blockquote>
+            </article>
+            <article class="testimonial-card" data-testimonial="4">
+              <p class="eyebrow">EL IMPACTO DE ESCUCHAR</p>
+              <blockquote>
+                «Cada palabra que dijiste hizo un movimiento en mí».
+              </blockquote>
+              <p class="testimonial-context">Reacción a un video del mentor.</p>
+            </article>
+          </div>
+          <p
+            class="carousel-position"
+            id="testimonials-position"
+            aria-live="polite"
+            aria-atomic="true"
+            hidden
+          >
+            1 de 5
+          </p>
+        </div>
+      </section>
+      <section class="section plans" id="planes" aria-labelledby="plans-title">
+        <div class="container">
+          <div class="section-heading centered">
+            <p class="eyebrow">TU PRÓXIMO PASO</p>
+            <h2 id="plans-title">Elegí cómo querés vivir esta experiencia</h2>
+          </div>
+          <div class="plans-grid">
+            <article class="plan-card" aria-labelledby="basic-title">
+              <h3 class="eyebrow" id="basic-title">BÁSICO</h3>
+              <p class="plan-price"><span>USD</span> 50</p>
+              <p class="plan-description">Entrenamiento completo de 30 días.</p>
+              <ul class="plan-features">
+                <li>Audios diarios de poder.</li>
+                <li>Audio de Hipnosis Transformacional.</li>
+                <li>4 sesiones en vivo por YouTube y sus grabaciones.</li>
+                <li>Workbook con prácticas activas.</li>
+                <li>Grupo privado de Telegram.</li>
+              </ul>
+              <a
+                href="https://www.paypal.com/ncp/payment/J62F4J94WSUUS"
+                class="button plan-button"
+                id="paypal-basic"
+                target="_blank"
+                rel="noopener noreferrer"
+                >INSCRIBIRME
+                <svg viewBox="0 0 24 24" class="arrow-icon" aria-hidden="true">
+                  <path d="M5 19 19 5M5 5h14v14" /></svg
+              ></a>
+              <p class="payment-note">
+                Pago único · PayPal · Abre en otra pestaña
+              </p>
+            </article>
+            <article class="plan-card plan-vip" aria-labelledby="vip-title">
+              <h3 class="eyebrow" id="vip-title">VIP</h3>
+              <p class="plan-price"><span>USD</span> 100</p>
+              <p class="plan-description">
+                Todo lo del Básico + una experiencia individual de
+                Recodificación Profunda.
+              </p>
+              <ul class="plan-features">
+                <li>Todo el entrenamiento Básico.</li>
+                <li>
+                  Sesión individual <strong>1:1 de 90 minutos</strong> de
+                  Recodificación Profunda.
+                </li>
+                <li>
+                  Trabajo personalizado sobre el conflicto emocional principal
+                  que la persona desea abordar.
+                </li>
+                <li>
+                  Exploración de su historia, trabajo de liberación emocional y
+                  transformación de percepciones.
+                </li>
+                <li>
+                  <strong>3 días de seguimiento personalizado</strong> luego de
+                  la sesión para integrar lo vivido.
+                </li>
+              </ul>
+              <a
+                href="https://www.paypal.com/ncp/payment/KCD2MNCN69K6C"
+                class="button plan-button"
+                id="paypal-vip"
+                target="_blank"
+                rel="noopener noreferrer"
+                >QUIERO MI EXPERIENCIA VIP
+                <svg viewBox="0 0 24 24" class="arrow-icon" aria-hidden="true">
+                  <path d="M5 19 19 5M5 5h14v14" /></svg
+              ></a>
+              <p class="payment-note">
+                Pago único · PayPal · Abre en otra pestaña
+              </p>
+              <details class="vip-details">
+                <summary>
+                  Conocé cómo es una sesión de Recodificación Profunda
+                </summary>
+                <div class="details-content prose">
+                  <h3>Sesión 1:1 de Recodificación Profunda</h3>
+                  <p>
+                    <strong
+                      >90 minutos de transformación interior + 3 días de
+                      seguimiento personalizado.</strong
+                    >
+                  </p>
+                  <p>
+                    Hay heridas del pasado que todavía influyen en la manera en
+                    que vivís tu presente.
+                  </p>
+                  <p>
+                    En esta sesión individual vamos a trabajar profundamente
+                    sobre el conflicto que hoy tiene mayor impacto en tu vida.
+                  </p>
+                  <p>
+                    A través de un proceso de recodificación, vamos a recorrer
+                    tu historia para reconocer el origen emocional de tus
+                    patrones, comprender las experiencias que los sostienen y
+                    abrir un espacio de liberación, perdón y transformación de
+                    tus percepciones.
+                  </p>
+                  <p>
+                    El propósito es que puedas regresar al presente con una
+                    nueva comprensión de tu historia, una mirada más amorosa
+                    hacia vos misma y mayores recursos para vivir desde la paz y
+                    la presencia.
+                  </p>
+                  <p>
+                    <strong
+                      >Y el acompañamiento no termina en la sesión.</strong
+                    >
+                  </p>
+                  <p>
+                    Durante los tres días siguientes, voy a acompañarte
+                    personalmente para ayudarte a integrar lo vivido y llevar
+                    tus nuevos aprendizajes a la vida cotidiana.
+                  </p>
+                  <p>
+                    <em
+                      >Un encuentro para mirar tu historia desde un lugar
+                      diferente y comenzar a transformar tu presente.</em
+                    >
+                  </p>
+                </div>
+              </details>
+            </article>
+          </div>
+          <div class="alternative-payment centered narrow">
+            <h3>¿Preferís otro medio de pago?</h3>
+            <p>
+              También podés inscribirte mediante Western Union, criptomonedas,
+              transferencia bancaria en Uruguay o Mercado Pago. Escribime por
+              WhatsApp y coordinamos personalmente tu inscripción.
+            </p>
+            <a
+              class="button button-outline"
+              data-whatsapp
+              href="https://wa.me/59897988262?text=Hola%2C%20quiero%20consultar%20por%20otro%20medio%20de%20pago%20para%20Recodific%C3%A1%20tu%20Reactividad"
+              target="_blank"
+              rel="noopener noreferrer"
+              >CONSULTAR POR WHATSAPP
+              <svg viewBox="0 0 24 24" class="arrow-icon" aria-hidden="true">
+                <path d="M5 19 19 5M5 5h14v14" /></svg
+            ></a>
+          </div>
+        </div>
+      </section>
+      <section class="section faq" id="faq" aria-labelledby="faq-title">
+        <div class="container narrow">
+          <div class="section-heading centered">
+            <p class="eyebrow">PARA QUE PUEDAS ELEGIR CON CALMA</p>
+            <h2 id="faq-title">Preguntas frecuentes</h2>
+          </div>
+          <div class="accordion">
+            <details name="faq">
+              <summary>¿Cuánto dura el entrenamiento?</summary>
+              <div class="details-content">
+                <p>
+                  Dura 30 días. La fecha de inicio de esta edición está indicada
+                  en la portada.
+                </p>
+              </div>
+            </details>
+            <details name="faq">
+              <summary>¿Qué pasa si no puedo asistir a los vivos?</summary>
+              <div class="details-content">
+                <p>
+                  Las 4 sesiones en vivo por YouTube quedan grabadas para que
+                  puedas verlas después.
+                </p>
+              </div>
+            </details>
+            <details name="faq">
+              <summary>¿Qué incluye el entrenamiento?</summary>
+              <div class="details-content">
+                <p>
+                  Ambos planes incluyen audios diarios de poder, un audio de
+                  Hipnosis Transformacional para escuchar por las noches, 4
+                  sesiones en vivo con sus grabaciones, un workbook y un grupo
+                  privado de Telegram durante los 30 días.
+                </p>
+              </div>
+            </details>
+            <details name="faq">
+              <summary>¿Cuál es la diferencia entre Básico y VIP?</summary>
+              <div class="details-content">
+                <p>
+                  El Básico cuesta USD 50 e incluye todo el entrenamiento. El
+                  VIP cuesta USD 100 y suma una sesión individual de
+                  Recodificación Profunda de 90 minutos y 3 días de seguimiento
+                  personalizado después de la sesión.
+                </p>
+              </div>
+            </details>
+            <details name="faq">
+              <summary>¿Cómo puedo inscribirme y pagar?</summary>
+              <div class="details-content">
+                <p>
+                  Podés elegir tu plan y pagar por PayPal. Si preferís Western
+                  Union, criptomonedas, transferencia bancaria en Uruguay o
+                  Mercado Pago,
+                  <a
+                    data-whatsapp
+                    href="https://wa.me/59897988262?text=Hola%2C%20quiero%20consultar%20por%20otro%20medio%20de%20pago%20para%20Recodific%C3%A1%20tu%20Reactividad"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >escribime por WhatsApp</a
+                  >
+                  y coordinamos tu inscripción.
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+      <section class="section closing" aria-labelledby="closing-title">
+        <div class="container narrow centered">
+          <p class="eyebrow">UN NUEVO CAMINO EMPIEZA EN VOS</p>
+          <h2 id="closing-title">
+            Una manera diferente de vivir tus emociones puede abrir nuevas
+            posibilidades en el vínculo con tus hijos.
+          </h2>
+          <a href="#planes" class="button"
+            >ELEGÍ TU EXPERIENCIA
+            <svg viewBox="0 0 24 24" class="arrow-icon" aria-hidden="true">
+              <path d="M12 20V4m-6 6 6-6 6 6" /></svg
+          ></a>
+        </div>
+      </section>
+    </main>
+    <footer class="footer container">
+      <a class="wordmark" href="#hero">recodificá<span>tu reactividad</span></a>
+      <p>Sebastián Sbaracco · 2026</p>
+      <a
+        href="https://instagram.com/sebastiansbaracco"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Instagram
+        <svg viewBox="0 0 24 24" class="arrow-icon" aria-hidden="true">
+          <path d="M5 19 19 5M5 5h14v14" /></svg
+      ></a>
+    </footer>
+    <dialog id="testimonial-dialog" aria-labelledby="testimonial-dialog-title">
+      <div class="dialog-header">
+        <h2 id="testimonial-dialog-title">Testimonio original</h2>
+        <button
+          class="icon-button"
+          id="testimonial-close"
+          type="button"
+          aria-label="Cerrar testimonio"
+        >
+          ×
+        </button>
       </div>
-      <p class="quote-highlight reveal">No te pasa porque seas mala madre, te pasa por una razón que nadie te explicó..</p>
-    </div>
-  </section>
-
-
-  <!-- ================================================================
-       3. LA REVELACIÓN
-  ================================================================ -->
-  <section class="section revelacion" id="revelacion">
-    <div class="container">
-      <h2 class="section-title reveal">No es falta de paciencia. Es biología y energía.</h2>
-
-      <div class="revelation-grid">
-        <div class="revelation-item reveal">
-          <span class="revelation-icon" aria-hidden="true">🧠</span>
-          <p><strong>En el momento de la explosión, el cortisol inunda tu cerebro y apaga la parte racional.</strong> No es falta de voluntad — es fisiología.</p>
-        </div>
-        <div class="revelation-item reveal">
-          <span class="revelation-icon" aria-hidden="true">🔄</span>
-          <p><strong>El patrón no vive en tu conducta. Vive en tu subconsciente,</strong> programado antes de los 7 años.</p>
-        </div>
-        <div class="revelation-item reveal">
-          <span class="revelation-icon" aria-hidden="true">✨</span>
-          <p><strong>Por eso más información no alcanza.</strong> Necesitás trabajar desde adentro — donde el patrón realmente vive.</p>
-        </div>
+      <div
+        class="dialog-image-scroll"
+        tabindex="0"
+        role="region"
+        aria-label="Captura completa, desplazá para leer"
+      >
+        <img id="testimonial-full-image" alt="" width="800" height="1000" />
       </div>
-
-      <p class="quote-highlight reveal">La reactividad no se controla. Se recodifica desde adentro</p>
-
-      <div class="reflection-prose">
-        <p class="reveal">Lo que sentis a través de tus hijos hoy es lo que viviste en tu infancia, es lo que quedó programado en tu subconsciente y en tu cuerpo</p>
-        <p class="reveal">Esos momentos de Impaciencia, Frustración e Impotencia, en donde reaccionas de formas que te duelen y no queres, son la Clave para sanar en tu interior</p>
-        <p class="reveal">Cuando aprendes a sentir y a gestionar sanamente esos sentimientos, liberas la energía de la emoción del pasado, y en ese momento es que rompes el patrón que se programó en tu infancia</p>
-        <p class="reveal">La calma, la Paciencia y la Presencia, surgen naturalmente en tu interior luego de liberar esas emociones del pasado</p>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ================================================================
-       4. EN ESTE ENTRENAMIENTO — bloque oscuro
-  ================================================================ -->
-  <section class="section ensenanza" id="ensenanza">
-    <div class="container container-narrow">
-      <h2 class="section-title reveal">En este Entrenamiento te voy a enseñar</h2>
-      <ul class="ensenanza-list">
-        <li class="reveal">a que encuentres en tu interior las emociones y sentimientos del pasado que aún resuenan en vos, para que las veas sin juicio y sin culpa.</li>
-        <li class="reveal">Herramientas de Recodificación para que liberes y sanes esas emociones, y te sientas Segura en el proceso</li>
-        <li class="reveal">y a Sostener la energía de la nueva vibración en tu maternidad para no volver a repetir los patrones del pasado</li>
-      </ul>
-    </div>
-  </section>
-
-
-  <!-- ================================================================
-       5. QUIÉN ES SEBA
-  ================================================================ -->
-  <section class="section seba" id="seba">
-    <div class="container">
-      <div class="seba-inner">
-        <div class="seba-photo reveal">
-          <img src="assets/img/seba-foto.jpg" alt="Sebastián Baracco, mentor de familias conscientes" loading="lazy" />
-        </div>
-        <div class="seba-text">
-          <p class="section-eyebrow reveal">Tu mentor en este proceso</p>
-          <h2 class="section-title left reveal">Sebastián Baracco</h2>
-          <p class="reveal">Llevo más de 5 años acompañando procesos de transformación interior en familias de todo el mundo. Más de 1500 sesiones individuales. Creé la Recodificación del Ser — un método que combina neurociencia, espiritualidad y acompañamiento real para trabajar los patrones desde donde realmente viven: en la mente, el cuerpo y la energía.</p>
-          <p class="reveal">No enseño técnicas para aguantar más. Acompaño procesos para que el cambio sea real, profundo y sostenido.</p>
-          <div class="pillars reveal">
-            <span class="pillar">Neurociencia</span>
-            <span class="pillar">Espiritualidad</span>
-            <span class="pillar">Acompañamiento real</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ================================================================
-       6. QUÉ INCLUYE
-  ================================================================ -->
-  <section class="section incluye" id="incluye">
-    <div class="container">
-      <h2 class="section-title reveal">Dentro del Entrenamiento vas a tener:</h2>
-
-      <div class="includes-grid">
-        <div class="include-card reveal">
-          <span class="include-icon" aria-hidden="true">🎧</span>
-          <h3>Audios diarios de poder</h3>
-          <p>Enviados por Telegram para reprogramar tu sistema día a día</p>
-        </div>
-        <div class="include-card reveal">
-          <span class="include-icon" aria-hidden="true">🌙</span>
-          <h3>Audio de Hipnosis Transformacional</h3>
-          <p>Para escuchar por las noches y Reprogramar tu Subconsciente</p>
-        </div>
-        <div class="include-card reveal">
-          <span class="include-icon" aria-hidden="true">📺</span>
-          <h3>4 sesiones en vivo por YouTube</h3>
-          <p>Con Información de Valor, Herramientas y espacio de Preguntas y Respuestas<br><em>(Sesiones que quedarán grabadas)</em></p>
-        </div>
-        <div class="include-card reveal">
-          <span class="include-icon" aria-hidden="true">📓</span>
-          <h3>Workbook con prácticas activas</h3>
-          <p>Para poder detectar y trabajar sobre tus emociones sin juicio, sin culpa</p>
-        </div>
-        <div class="include-card reveal">
-          <span class="include-icon" aria-hidden="true">💬</span>
-          <h3>Grupo privado de Telegram</h3>
-          <p>Donde te voy a sostener energéticamente durante los 30 días junto a más familias apoyándose</p>
-        </div>
-        <div class="include-card reveal vip-only">
-          <span class="include-icon" aria-hidden="true">⭐</span>
-          <h3>Sesión 1:1 de Recodificación profunda</h3>
-          <p>Solo opción VIP - Te acompaño de forma Personalizada, directa y profunda en tu proceso</p>
-          <span class="card-vip-tag">VIP</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ================================================================
-       7. LAS 3 FASES
-  ================================================================ -->
-  <section class="section fases" id="fases">
-    <div class="container">
-      <h2 class="section-title reveal">Cómo se trabaja</h2>
-
-      <div class="fases-grid">
-        <div class="fase-card reveal">
-          <span class="fase-numero" aria-hidden="true">01</span>
-          <div class="fase-content">
-            <p class="fase-dias">Días 1–10</p>
-            <h3>Toma de consciencia y comprensión</h3>
-            <p>Vas a Comprender la Biología del Desborde, Entender las emociones que te llevan a reaccionar, Soltar la culpa y Parar la fuga energética que te debilita</p>
-          </div>
-        </div>
-        <div class="fase-card reveal">
-          <span class="fase-numero" aria-hidden="true">02</span>
-          <div class="fase-content">
-            <p class="fase-dias">Días 11–20</p>
-            <h3>Disociación y recodificación activa</h3>
-            <p>Vas a aprender a Recodificar esas emociones del pasado, para dejar atrás la identidad reactiva y empezar a Programar tu Identidad Creadora</p>
-          </div>
-        </div>
-        <div class="fase-card reveal">
-          <span class="fase-numero" aria-hidden="true">03</span>
-          <div class="fase-content">
-            <p class="fase-dias">Días 21–30</p>
-            <h3>Reacondicionamiento y sostenibilidad</h3>
-            <p>Vas a aprender a Sostener la energía de la Calma, la Presencia y la Armonía en vos y en tu hogar</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ================================================================
-       8. PARA QUIÉN ES
-  ================================================================ -->
-  <section class="section para-quien" id="para-quien">
-    <div class="container container-narrow">
-      <h2 class="section-title reveal">Este entrenamiento es para vos si...</h2>
-
-      <ul class="checklist" role="list">
-        <li class="reveal"><span class="check" aria-hidden="true">✓</span>Ya intentaste con libros, terapias y cursos, y algo te sigue faltando</li>
-        <li class="reveal"><span class="check" aria-hidden="true">✓</span>Sabés lo que tenés que hacer pero no podés hacerlo en el momento</li>
-        <li class="reveal"><span class="check" aria-hidden="true">✓</span>Sentís que estás repitiendo patrones que no querés transmitirle a tus hijos</li>
-        <li class="reveal"><span class="check" aria-hidden="true">✓</span>Querés cambiar de raíz, no maquillar la conducta</li>
-        <li class="reveal"><span class="check" aria-hidden="true">✓</span>Estás dispuesta a mirarte a vos misma primero</li>
-      </ul>
-    </div>
-  </section>
-
-
-  <!-- ================================================================
-       9. LA OFERTA — tabla comparativa
-  ================================================================ -->
-  <section class="section oferta" id="oferta">
-    <div class="container">
-      <h2 class="section-title reveal">Hay dos formas de hacer el entrenamiento</h2>
-
-      <div class="comparison-wrap reveal">
-        <div class="comparison-table">
-
-          <!-- Cabecera -->
-          <div class="ct-row ct-head-row">
-            <div class="ct-feat-col"></div>
-            <div class="ct-plan-col ct-basic-col">Básico</div>
-            <div class="ct-plan-col ct-vip-col">VIP</div>
-          </div>
-
-          <!-- Filas de funcionalidades -->
-          <div class="ct-row">
-            <div class="ct-feat-col">Audios Diarios de poder</div>
-            <div class="ct-plan-col ct-basic-col"><span class="ct-yes">✓</span></div>
-            <div class="ct-plan-col ct-vip-col"><span class="ct-yes">✓</span></div>
-          </div>
-          <div class="ct-row">
-            <div class="ct-feat-col">Audio de Hipnosis Transformacional</div>
-            <div class="ct-plan-col ct-basic-col"><span class="ct-yes">✓</span></div>
-            <div class="ct-plan-col ct-vip-col"><span class="ct-yes">✓</span></div>
-          </div>
-          <div class="ct-row">
-            <div class="ct-feat-col">Sesiones en vivo por YouTube</div>
-            <div class="ct-plan-col ct-basic-col"><span class="ct-yes">✓</span></div>
-            <div class="ct-plan-col ct-vip-col"><span class="ct-yes">✓</span></div>
-          </div>
-          <div class="ct-row">
-            <div class="ct-feat-col">Grabación de las clases</div>
-            <div class="ct-plan-col ct-basic-col"><span class="ct-yes">✓</span></div>
-            <div class="ct-plan-col ct-vip-col"><span class="ct-yes">✓</span></div>
-          </div>
-          <div class="ct-row">
-            <div class="ct-feat-col">Workbook con prácticas activas</div>
-            <div class="ct-plan-col ct-basic-col"><span class="ct-yes">✓</span></div>
-            <div class="ct-plan-col ct-vip-col"><span class="ct-yes">✓</span></div>
-          </div>
-          <div class="ct-row">
-            <div class="ct-feat-col">Grupo privado de Telegram</div>
-            <div class="ct-plan-col ct-basic-col"><span class="ct-yes">✓</span></div>
-            <div class="ct-plan-col ct-vip-col"><span class="ct-yes">✓</span></div>
-          </div>
-          <div class="ct-row ct-last-row">
-            <div class="ct-feat-col">Sesión 1:1 de Recodificación profunda</div>
-            <div class="ct-plan-col ct-basic-col"><span class="ct-no">✗</span></div>
-            <div class="ct-plan-col ct-vip-col"><span class="ct-yes">✓</span></div>
-          </div>
-
-        </div>
-      </div>
-
-      <p class="comparison-cta-text reveal"><strong>Para Reservar tu lugar o Resolver tus Dudas hablá conmigo apretando el botón de AQUÍ ABAJO</strong></p>
-
-      <a href="https://wa.me/59897988262?text=Seba%20vengo%20de%20la%20p%C3%A1gina%20del%20Entrenamiento%20de%2030%20d%C3%ADas%2C%20y%20quiero%20ser%20parte...%20%28dime%20tu%20consulta%20si%20la%20tienes%29" class="btn-whatsapp reveal" target="_blank" rel="noopener noreferrer">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.867-2.031-.967-.272-.099-.47-.148-.669.149-.198.297-.768.967-.941 1.165-.173.198-.345.223-.643.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-        </svg>
-        WhatsApp
-      </a>
-
-    </div>
-  </section>
-
-
-  <!-- ================================================================
-       10. FAQ
-  ================================================================ -->
-  <section class="section faq" id="faq">
-    <div class="container container-narrow">
-      <h2 class="section-title reveal">Preguntas frecuentes</h2>
-
-      <div class="accordion">
-        <div class="accordion-item reveal">
-          <button class="accordion-btn" aria-expanded="false">
-            ¿Necesito haber visto el curso introductorio?
-            <span class="accordion-arrow" aria-hidden="true">↓</span>
-          </button>
-          <div class="accordion-body" role="region">
-            <p>Recomendamos verlo, pero no es obligatorio. Toda la información necesaria se da dentro del entrenamiento.</p>
-          </div>
-        </div>
-        <div class="accordion-item reveal">
-          <button class="accordion-btn" aria-expanded="false">
-            ¿Qué pasa si no puedo asistir a los vivos?
-            <span class="accordion-arrow" aria-hidden="true">↓</span>
-          </button>
-          <div class="accordion-body" role="region">
-            <p>Quedan grabados y disponibles para que los veas cuando puedas.</p>
-          </div>
-        </div>
-        <div class="accordion-item reveal">
-          <button class="accordion-btn" aria-expanded="false">
-            ¿Cuándo arranca y cuánto dura?
-            <span class="accordion-arrow" aria-hidden="true">↓</span>
-          </button>
-          <div class="accordion-body" role="region">
-            <p>Arranca el 14 de Octubre y dura 30 días exactos.</p>
-          </div>
-        </div>
-        <div class="accordion-item reveal">
-          <button class="accordion-btn" aria-expanded="false">
-            ¿Con qué método de pago puedo abonar?
-            <span class="accordion-arrow" aria-hidden="true">↓</span>
-          </button>
-          <div class="accordion-body" role="region">
-            <p>Contactame por WhatsApp en el botón que está más abajo y te paso los datos.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ================================================================
-       11. CIERRE — CTA FINAL
-  ================================================================ -->
-  <section class="section cierre" id="cierre">
-    <div class="container">
-      <p class="cierre-title reveal">
-        Cuando vos te Recodificás, tus hijos se transforman por resonancia
-      </p>
-      <a href="https://wa.me/59897988262?text=Seba%20vengo%20de%20la%20p%C3%A1gina%20del%20Entrenamiento%20de%2030%20d%C3%ADas%2C%20y%20quiero%20ser%20parte...%20%28dime%20tu%20consulta%20si%20la%20tienes%29" class="whatsapp-link reveal" target="_blank" rel="noopener noreferrer">
-        ¿Tenés dudas? Escribime por WhatsApp
-      </a>
-    </div>
-  </section>
-
-
-  <!-- ================================================================
-       12. FOOTER
-  ================================================================ -->
-  <footer class="footer">
-    <div class="container">
-      <p>
-        @sebastiansbaracco ·
-        <a href="https://instagram.com/sebastiansbaracco" target="_blank" rel="noopener noreferrer">Instagram</a>
-        · 2026
-      </p>
-    </div>
-  </footer>
-
-  <script defer src="script.js?v=20260605"></script>
-
-</body>
+    </dialog>
+  </body>
 </html>

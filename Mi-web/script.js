@@ -1,361 +1,223 @@
-/**
- * Recodifica tu Reactividad — Sebastián Baracco
- * script.js · v20260604
- * Vanilla JS puro · IIFE · sin módulos ES
- */
+/* Vanilla JS; the content remains readable without JavaScript. */
 (function () {
   "use strict";
+  var config = window.RECODIFICA_CONFIG;
+  var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  /* ================================================================
-     UTILIDAD: envuelve cada init en try/catch para que un error
-     no rompa el resto del boot.
-  ================================================================ */
-  function safe(fn, name) {
-    try {
-      fn();
-    } catch (e) {
-      console.warn("[" + name + "]", e);
-    }
-  }
-
-
-  /* ================================================================
-     SCROLL REVEAL — IntersectionObserver
-     Threshold muy bajo (0.04) + safety net a los 5s.
-  ================================================================ */
-  function initReveal() {
-    var items = document.querySelectorAll(".reveal");
-    if (!items.length) return;
-
-    var io = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) {
-            e.target.classList.add("is-visible");
-            io.unobserve(e.target);
-          }
-        });
-      },
-      {
-        threshold: 0.04,
-        rootMargin: "0px 0px -4% 0px",
-      }
-    );
-
-    items.forEach(function (el) {
-      io.observe(el);
-    });
-
-    /* Safety net: forzar visibilidad de cualquier elemento
-       que siga oculto a los 5 segundos (scroll rápido, CPU lenta, etc.) */
-    setTimeout(function () {
-      document.querySelectorAll(".reveal:not(.is-visible)").forEach(function (el) {
-        var rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight + 200) {
-          el.classList.add("is-visible");
-        }
-      });
-    }, 5000);
-  }
-
-
-  /* ================================================================
-     HERO: zoom de entrada y observe de carga de imagen
-  ================================================================ */
-  function initHero() {
-    var bg = document.querySelector(".hero-bg");
-    if (!bg) return;
-
-    /* Activa la imagen y el efecto de zoom una vez cargada */
-    var heroImg = new Image();
-    var bgStyle = bg.style.backgroundImage.replace(/url\(["']?|["']?\)/g, "");
-    heroImg.onload = function () {
-      bg.classList.add("loaded");
-    };
-    heroImg.src = bgStyle;
-
-    /* Si no hay imagen (src vacío o rota), agregamos loaded igual */
-    heroImg.onerror = function () {
-      bg.classList.add("loaded");
-    };
-  }
-
-
-  /* ================================================================
-     SCROLL SUAVE para enlaces âncora (CTA → #oferta, etc.)
-  ================================================================ */
-  function initSmoothScroll() {
-    document.addEventListener("click", function (e) {
-      var a = e.target.closest('a[href^="#"]');
-      if (!a) return;
-      var id = a.getAttribute("href");
-      if (!id || id === "#") return;
-      var target = document.querySelector(id);
-      if (!target) return;
-
-      e.preventDefault();
-      var navOffset = 0;   /* no hay nav fija en esta página */
-      window.scrollTo({
-        top: target.getBoundingClientRect().top + window.scrollY - navOffset,
-        behavior: "smooth",
-      });
-    });
-  }
-
-
-  /* ================================================================
-     ACORDEÓN — FAQ
-  ================================================================ */
-  function initAccordion() {
-    var items = document.querySelectorAll(".accordion-item");
-    if (!items.length) return;
-
-    items.forEach(function (item) {
-      var btn = item.querySelector(".accordion-btn");
-      if (!btn) return;
-
-      btn.addEventListener("click", function () {
-        var isOpen = item.classList.contains("open");
-
-        /* Cerrar todos los demás */
-        items.forEach(function (other) {
-          if (other !== item) {
-            other.classList.remove("open");
-            var otherBtn = other.querySelector(".accordion-btn");
-            if (otherBtn) otherBtn.setAttribute("aria-expanded", "false");
-          }
-        });
-
-        /* Toggle el actual */
-        item.classList.toggle("open", !isOpen);
-        btn.setAttribute("aria-expanded", String(!isOpen));
-      });
-    });
-  }
-
-
-  /* ================================================================
-     MODALES PAYPAL
-     openModal / closeModal son funciones globales (llamadas desde HTML).
-     paypalRendered evita renderizar los botones dos veces.
-  ================================================================ */
-  var paypalRendered = { "modal-50": false, "modal-100": false };
-
-  function openModal(id) {
-    var overlay = document.getElementById(id);
-    if (!overlay) return;
-
-    overlay.removeAttribute("hidden");
-    /* Doble requestAnimationFrame para que la transición CSS tenga tiempo */
-    requestAnimationFrame(function () {
-      requestAnimationFrame(function () {
-        overlay.classList.add("is-open");
-      });
-    });
-
-    document.body.style.overflow = "hidden";
-
-    /* Foco en el primer elemento interactivo del modal (accesibilidad) */
-    var closeBtn = overlay.querySelector(".modal-close");
-    if (closeBtn) setTimeout(function () { closeBtn.focus(); }, 50);
-
-    /* Renderizar botones PayPal si el SDK está disponible */
-    safe(function () { renderPayPalButtons(id); }, "renderPayPal:" + id);
-  }
-
-  function closeModal(id) {
-    var overlay = document.getElementById(id);
-    if (!overlay) return;
-
-    overlay.classList.remove("is-open");
-
-    /* Esperar a que termine la transición antes de ocultar */
-    overlay.addEventListener(
-      "transitionend",
-      function handler() {
-        overlay.setAttribute("hidden", "");
-        overlay.removeEventListener("transitionend", handler);
-        document.body.style.overflow = "";
-      },
-      { once: true }
-    );
-  }
-
-  /* Cerrar modal al hacer clic en el overlay (fuera de la tarjeta) */
-  function initModalClose() {
-    document.querySelectorAll(".modal-overlay").forEach(function (overlay) {
-      overlay.addEventListener("click", function (e) {
-        if (e.target === overlay) {
-          closeModal(overlay.id);
-        }
-      });
-    });
-
-    /* Cerrar con tecla Escape */
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") {
-        document.querySelectorAll(".modal-overlay.is-open").forEach(function (o) {
-          closeModal(o.id);
-        });
-      }
-    });
-  }
-
-  /* Exponer al scope global para los botones onclick del HTML */
-  window.openModal = openModal;
-  window.closeModal = closeModal;
-
-
-  /* ================================================================
-     PAYPAL — renderiza botones dentro de cada modal
-
-     CONFIGURACIÓN (completar con datos reales):
-     1. Descomentá el script de PayPal en index.html
-     2. Reemplazá YOUR_PAYPAL_CLIENT_ID con tu Client ID real
-     3. Para recibir pagos reales usá el Live Client ID
-     4. Para pruebas usá el Sandbox Client ID
-
-     DOCS: https://developer.paypal.com/sdk/js/
-  ================================================================ */
-  function renderPayPalButtons(modalId) {
-    /* Precio y contenedor según qué modal se abrió */
-    var config = {
-      "modal-50": {
-        containerId: "paypal-buttons-50",
-        amount: "50.00",
-        description: "Recodifica tu Reactividad — Entrenamiento 30 días",
-      },
-      "modal-100": {
-        containerId: "paypal-buttons-100",
-        amount: "100.00",
-        description: "Recodifica tu Reactividad — Entrenamiento VIP 30 días",
-      },
-    };
-
-    var cfg = config[modalId];
-    if (!cfg) return;
-
-    /* No renderizar dos veces */
-    if (paypalRendered[modalId]) return;
-
-    var container = document.getElementById(cfg.containerId);
-    if (!container) return;
-
-    /* Si el SDK de PayPal no está cargado aún */
-    if (!window.paypal) {
-      container.innerHTML =
-        '<p class="paypal-pending">' +
-        "Para activar los pagos, configurá tu PayPal Client ID en el script de PayPal (ver comentarios en index.html).<br><br>" +
-        '<a href="https://developer.paypal.com/dashboard/applications" target="_blank" rel="noopener">' +
-        "Obtener mi Client ID →</a></p>";
-      return;
-    }
-
-    /* Renderizar botones de PayPal */
-    paypalRendered[modalId] = true;
-
-    window.paypal
-      .Buttons({
-        style: {
-          shape: "rect",
-          color: "gold",
-          layout: "vertical",
-          label: "pay",
-          height: 48,
-        },
-
-        /* Crear orden */
-        createOrder: function (data, actions) {
-          return actions.order.create({
-            purchase_units: [
-              {
-                amount: {
-                  value: cfg.amount,
-                  currency_code: "USD",
-                },
-                description: cfg.description,
-              },
-            ],
-          });
-        },
-
-        /* Pago aprobado */
-        onApprove: function (data, actions) {
-          return actions.order.capture().then(function (details) {
-            closeModal(modalId);
-            /* Mostrar mensaje de éxito */
-            setTimeout(function () {
-              showSuccessMessage(cfg.amount);
-            }, 400);
-          });
-        },
-
-        /* Error */
-        onError: function (err) {
-          console.error("PayPal error:", err);
-          var errEl = document.createElement("p");
-          errEl.className = "paypal-pending";
-          errEl.textContent =
-            "Hubo un problema al procesar el pago. Por favor intentá de nuevo o escribinos por WhatsApp.";
-          container.appendChild(errEl);
-        },
-
-        /* Cancelación */
-        onCancel: function () {
-          /* El usuario cerró la ventana de PayPal — no hacer nada */
-        },
+  function initLinks() {
+    if (!config) return;
+    var date = document.getElementById("edition-date");
+    var edition = new Date(config.editionDate + "T12:00:00Z");
+    if (!Number.isNaN(edition.getTime())) {
+      date.dateTime = config.editionDate;
+      date.textContent = new Intl.DateTimeFormat("es-UY", {
+        day: "numeric",
+        month: "long",
+        timeZone: "UTC",
       })
-      .render("#" + cfg.containerId);
-  }
-
-  /* Mensaje de éxito después del pago */
-  function showSuccessMessage(amount) {
-    var overlay = document.createElement("div");
-    overlay.style.cssText =
-      "position:fixed;inset:0;z-index:1100;background:rgba(30,26,22,0.72);" +
-      "display:flex;align-items:center;justify-content:center;padding:20px;";
-
-    var card = document.createElement("div");
-    card.style.cssText =
-      "background:#fff;border-radius:16px;padding:48px 36px;max-width:420px;" +
-      "width:100%;text-align:center;font-family:'Montserrat',sans-serif;";
-
-    card.innerHTML =
-      '<p style="font-size:2.5rem;margin-bottom:16px;">🎉</p>' +
-      '<h3 style="font-size:1.3rem;font-weight:700;color:#2e2e2e;margin-bottom:12px;">¡Pago recibido!</h3>' +
-      '<p style="font-size:0.9rem;color:#888;line-height:1.6;margin-bottom:28px;">' +
-      "Gracias por tu inscripción. En breve recibirás un mensaje con todos los detalles del comienzo. " +
-      "¡Bienvenida al entrenamiento!</p>" +
-      '<button onclick="this.closest(\'[data-success]\').remove()" ' +
-      'style="padding:14px 40px;background:#7d8767;color:#fff;border:none;border-radius:6px;' +
-      'font-family:inherit;font-size:0.85rem;font-weight:700;letter-spacing:0.08em;cursor:pointer;">Cerrar</button>';
-
-    overlay.dataset.success = "1";
-    overlay.appendChild(card);
-    document.body.appendChild(overlay);
-
-    /* Cerrar al hacer clic en el overlay */
-    overlay.addEventListener("click", function (e) {
-      if (e.target === overlay) overlay.remove();
+        .format(edition)
+        .toUpperCase();
+    }
+    document.getElementById("paypal-basic").href = config.paypal.basic;
+    document.getElementById("paypal-vip").href = config.paypal.vip;
+    document.querySelectorAll("[data-whatsapp]").forEach(function (link) {
+      link.href =
+        "https://wa.me/" +
+        config.whatsapp.number +
+        "?text=" +
+        encodeURIComponent(config.whatsapp.message);
     });
   }
 
-
-  /* ================================================================
-     BOOT — arrancar todo cuando el DOM está listo
-  ================================================================ */
-  function boot() {
-    safe(initReveal,      "initReveal");
-    safe(initHero,        "initHero");
-    safe(initSmoothScroll, "initSmoothScroll");
-    safe(initAccordion,   "initAccordion");
-    safe(initModalClose,  "initModalClose");
+  function initVideo() {
+    var player = document.querySelector("wistia-player");
+    var mediaId = config
+      ? config.wistiaMediaId
+      : player.getAttribute("media-id");
+    player.setAttribute("media-id", mediaId);
+    player.style.backgroundImage =
+      "url('https://fast.wistia.com/embed/medias/" + mediaId + "/swatch')";
+    customElements.whenDefined("wistia-player").then(function () {
+      player.style.backgroundImage = "";
+    });
+    var loaded = false;
+    function load() {
+      if (loaded) return;
+      loaded = true;
+      [
+        "https://fast.wistia.com/player.js",
+        "https://fast.wistia.com/embed/" + mediaId + ".js",
+      ].forEach(function (url, index) {
+        var script = document.createElement("script");
+        script.src = url;
+        script.async = true;
+        if (index === 1) script.type = "module";
+        script.onerror = function () {
+          document.getElementById("video-error").hidden = false;
+        };
+        document.head.appendChild(script);
+      });
+    }
+    if ("IntersectionObserver" in window) {
+      var observer = new IntersectionObserver(
+        function (entries) {
+          if (
+            entries.some(function (entry) {
+              return entry.isIntersecting;
+            })
+          ) {
+            load();
+            observer.disconnect();
+          }
+        },
+        { rootMargin: "300px" },
+      );
+      observer.observe(player);
+    } else load();
+    document.getElementById("hero-cta").addEventListener("click", load);
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", boot);
-  } else {
-    boot();
+  function initTestimonials() {
+    var track = document.getElementById("testimonials-track");
+    var cards = Array.from(track.children);
+    var previous = document.getElementById("testimonials-prev");
+    var next = document.getElementById("testimonials-next");
+    var position = document.getElementById("testimonials-position");
+    var dialog = document.getElementById("testimonial-dialog");
+    var fullImage = document.getElementById("testimonial-full-image");
+    var returnFocus;
+    document.querySelector(".carousel-controls").hidden = false;
+    position.hidden = false;
+
+    function activeIndex() {
+      var start = track.getBoundingClientRect().left + 3;
+      return cards.reduce(function (closest, card, index) {
+        return Math.abs(card.getBoundingClientRect().left - start) <
+          Math.abs(cards[closest].getBoundingClientRect().left - start)
+          ? index
+          : closest;
+      }, 0);
+    }
+    function update() {
+      var index = activeIndex();
+      previous.disabled = track.scrollLeft < 5;
+      next.disabled =
+        track.scrollLeft + track.clientWidth >= track.scrollWidth - 5;
+      position.textContent = index + 1 + " de " + cards.length;
+    }
+    function move(direction) {
+      var index = Math.max(
+        0,
+        Math.min(cards.length - 1, activeIndex() + direction),
+      );
+      track.scrollTo({
+        left: cards[index].offsetLeft - cards[0].offsetLeft,
+        behavior: reducedMotion.matches ? "instant" : "smooth",
+      });
+    }
+    previous.addEventListener("click", function () {
+      move(-1);
+    });
+    next.addEventListener("click", function () {
+      move(1);
+    });
+    track.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    track.addEventListener("keydown", function (event) {
+      if (event.target !== track) return;
+      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        event.preventDefault();
+        move(event.key === "ArrowRight" ? 1 : -1);
+      }
+    });
+
+    // Only attach supplied, anonymized original screenshots approved for publication.
+    if (config)
+      config.testimonials.forEach(function (item, index) {
+        if (!item.src || !item.publicationApproved || !cards[index]) return;
+        var button = document.createElement("button");
+        button.className = "capture-button";
+        button.type = "button";
+        button.setAttribute("aria-haspopup", "dialog");
+        button.setAttribute(
+          "aria-label",
+          "Ampliar captura original: " + item.label,
+        );
+        var image = document.createElement("img");
+        image.src = item.src;
+        image.alt = item.alt;
+        image.width = item.width;
+        image.height = item.height;
+        image.loading = "lazy";
+        image.decoding = "async";
+        var caption = document.createElement("span");
+        caption.textContent = "Ver captura completa";
+        button.append(image, caption);
+        button.addEventListener("click", function () {
+          returnFocus = button;
+          fullImage.src = item.src;
+          fullImage.alt = item.alt;
+          fullImage.width = item.width;
+          fullImage.height = item.height;
+          document.getElementById("testimonial-dialog-title").textContent =
+            item.label;
+          dialog.showModal();
+          document.body.classList.add("modal-open");
+          document.getElementById("testimonial-close").focus();
+          document.querySelector(".dialog-image-scroll").scrollTop = 0;
+        });
+        cards[index].appendChild(button);
+      });
+    document
+      .getElementById("testimonial-close")
+      .addEventListener("click", function () {
+        dialog.close();
+      });
+    dialog.addEventListener("click", function (event) {
+      var rect = dialog.getBoundingClientRect();
+      if (
+        event.target === dialog &&
+        (event.clientX < rect.left ||
+          event.clientX > rect.right ||
+          event.clientY < rect.top ||
+          event.clientY > rect.bottom)
+      )
+        dialog.close();
+    });
+    dialog.addEventListener("close", function () {
+      document.body.classList.remove("modal-open");
+      if (returnFocus) returnFocus.focus();
+    });
+    dialog.addEventListener("keydown", function (event) {
+      if (event.key !== "Tab") return;
+      var controls = dialog.querySelectorAll('button, [tabindex="0"]');
+      var first = controls[0];
+      var last = controls[controls.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+    update();
   }
 
+  // Native details supplies keyboard interaction and state without custom ARIA.
+  // Keep one FAQ open at a time, including browsers without details[name].
+  document.querySelectorAll(".accordion details").forEach(function (item) {
+    item.addEventListener("toggle", function () {
+      if (item.open)
+        document
+          .querySelectorAll(".accordion details")
+          .forEach(function (other) {
+            if (other !== item) other.open = false;
+          });
+    });
+  });
+
+  initLinks();
+  initVideo();
+  initTestimonials();
 })();
