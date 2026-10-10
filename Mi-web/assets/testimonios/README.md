@@ -1,24 +1,29 @@
-# Capturas originales pendientes
+# Capturas originales integradas
 
-Las cinco capturas se proporcionaron visualmente en el chat, pero sus archivos
-originales no están accesibles en el entorno. No se recrearon imágenes ni mensajes.
-Los extractos exactos sí están en el carrusel, en el orden aprobado.
+Correspondencia verificada visualmente, sin discrepancias de contenido. Los
+archivos proporcionados tienen extensión real `.jpg` y se conservan intactos.
 
-Al disponer de los originales, guardarlos aquí con nombres claros:
+| Archivo | Categoría | Dimensiones originales |
+| --- | --- | --- |
+| `testimonio-1.jpg` | Transformación profunda | 833 × 1449 |
+| `testimonio-2.jpg` | Reconexión personal | 705 × 459 |
+| `testimonio-3.jpg` | Amor y compasión | 825 × 865 |
+| `testimonio-4.jpg` | Transformación familiar | 800 × 742 |
+| `testimonio-5.jpg` | Impacto de un video | 800 × 390 |
 
-1. `transformacion-profunda` — «No tengo palabras para agradecer…».
-2. `reconexion-personal` — «Yo hice este entrenamiento y Woow…».
-3. `amor-y-compasion` — «Este entrenamiento te hace volver a mirarte…».
-4. `transformacion-familiar` — «De verdad que este entrenamiento…».
-5. `impacto-del-video` — «Llevo 30 minutos aproximadamente de video…».
+Los extractos exactos permanecen en `index.html`. El quinto mensaje se identifica
+como reacción a un video, no como finalización del entrenamiento de 30 días.
+No se añadió la captura del programa de 90 días ni se recrearon mensajes.
 
-Usar únicamente originales con permiso para publicación y sin datos personales
-identificables. Mantener íntegro el mensaje; ocultar nombres, usuarios, fotos,
-teléfonos o iniciales identificativas sin recrear el chat.
+`config.js` contiene las rutas y dimensiones reales. `redactions` oculta el área
+del autor de la segunda captura (ya tachada en el archivo original). `displayHeight`
+deja fuera únicamente la franja de reacciones con iniciales de la tercera y
+cuarta captura. Estas medidas se aplican al thumbnail, al modal y a la lectura
+sin JavaScript. Ninguna línea del mensaje se recorta. Los archivos originales
+subidos por el usuario no se sobrescriben ni eliminan.
 
-En `Mi-web/config.js`, completar `testimonials[i].src` con una ruta relativa a
-`Mi-web` (por ejemplo `assets/testimonios/transformacion-profunda.png`), registrar
-las dimensiones reales y marcar `publicationApproved: true` cuando corresponda.
-Esto añade automáticamente la miniatura y el botón para ampliarla en el modal.
-El quinto mensaje se identifica como reacción a un video, no como finalización
-del entrenamiento. No añadir la captura del programa de 90 días.
+La presentación mantiene proporciones, previews compactos y un modal con scroll,
+zoom, Escape y retorno del foco. El fallback nativo usa `details`, para permitir
+la lectura del mensaje completo cuando JavaScript esté deshabilitado o falle.
+Si cambian las imágenes, sincronizar los datos y máscaras de `config.js` con los
+fallbacks HTML de `index.html` y verificar visualmente que no haya datos identificables.

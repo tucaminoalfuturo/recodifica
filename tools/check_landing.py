@@ -51,6 +51,19 @@ def check_content(page):
     require(page.locator('.resources article').count() == 5, 'Five common resources')
     require(page.locator('.stage-card').count() == 3, 'Three visible stages')
     require(page.locator('.testimonial-card').count() == 5, 'Five authentic excerpts')
+    require(page.locator('.capture-button').count() == 5, 'Five supplied captures')
+    for index, image in enumerate(page.locator('.capture-button img').all(), 1):
+        require(image.get_attribute('src') == f'assets/testimonios/testimonio-{index}.jpg', 'Correct real screenshot route')
+        image.scroll_into_view_if_needed()
+        image.evaluate('(e) => e.decode()')
+        require(image.evaluate('(e) => e.naturalWidth === Number(e.getAttribute("width")) && e.naturalHeight === Number(e.getAttribute("height"))'), 'Actual screenshot dimensions match metadata')
+    require(page.locator('.concept-illustration').count() == 2, 'Two supplied illustrations')
+    for image in page.locator('.concept-illustration img').all():
+        image.scroll_into_view_if_needed()
+        image.evaluate('(e) => e.decode()')
+        require(image.evaluate('(e) => e.naturalWidth > 0 && e.currentSrc.endsWith(".webp")'), 'Optimized illustration loads')
+    require('buscaste acompañamiento' in page.locator('.objection').inner_text(), 'Concise approved objection copy')
+    require('podrás seguir aplicando de manera autónoma' in page.locator('.practice-bridge').inner_text(), 'Concise autonomy bridge')
     require(page.locator('.plan-price').all_inner_texts() == ['USD 50', 'USD 100'], 'Correct visible plan prices')
     require(page.locator('#edition-date').get_attribute('datetime') == '2026-10-14', 'Correct edition date')
     require('Hawkins' in page.locator('.foundation').inner_text(), 'Foundation attribution')
@@ -74,6 +87,7 @@ def check_content(page):
 
 
 def check_interactions(page):
+    page.evaluate('window.scrollTo({top:0,behavior:"instant"})')
     page.locator('#hero-cta').click()
     page.wait_for_function('Math.abs(document.getElementById("video-entrenamiento").getBoundingClientRect().top - 24) < 4')
     require(page.url.endswith('#video-entrenamiento'), 'Native anchor hash preserved')
@@ -99,6 +113,8 @@ def check_interactions(page):
     require(page.locator('.accordion details').nth(1).evaluate('(e) => e.open'), 'Second FAQ has focus/state')
     track = page.locator('#testimonials-track')
     track.scroll_into_view_if_needed()
+    track.evaluate('(e) => e.scrollTo({left:0,behavior:"instant"})')
+    page.wait_for_function('document.getElementById("testimonials-track").scrollLeft < 5')
     track.focus()
     before = track.evaluate('(e) => e.scrollLeft')
     page.keyboard.press('ArrowRight')
@@ -127,30 +143,78 @@ def check_layout(page, width):
         require(page.locator('.stage-card').evaluate_all('(els) => new Set(els.map(e => e.offsetTop)).size === 1'), 'Desktop/tablet stages share a row')
 
 
-def check_dialog(browser, url):
-    # Runtime-only fixture: a supplied site's favicon exercises image and dialog plumbing.
-    # It is never saved as, or presented to users as, an original testimonial.
-    page = browser.new_page(viewport={'width':390, 'height':844})
-    page.add_init_script('''Object.defineProperty(window, 'RECODIFICA_CONFIG', {configurable: true, set(value) {
-      value.testimonials[0].src = 'assets/img/favicon.png';
-      value.testimonials[0].publicationApproved = true;
-      this.__testConfig = value;
-    }, get() { return this.__testConfig; }});''')
-    ready(page, url)
-    button = page.locator('.capture-button')
-    button.click()
-    dialog = page.locator('#testimonial-dialog')
-    require(dialog.evaluate('(e) => e.open'), 'Image dialog opens')
-    require(page.locator('#testimonial-close').evaluate('(e) => e === document.activeElement'), 'Dialog receives focus')
-    page.keyboard.press('Tab')
-    require(page.evaluate('document.getElementById("testimonial-dialog").contains(document.activeElement)'), 'Modal traps focus')
-    page.keyboard.press('Escape')
-    require(not dialog.evaluate('(e) => e.open'), 'Escape closes dialog')
-    require(button.evaluate('(e) => e === document.activeElement'), 'Focus returns to trigger')
-    require(not page.locator('body').evaluate('(e) => e.classList.contains("modal-open")'), 'Scroll unlocks after close')
-    button.click()
+def check_dialog(page):
+    for index in range(5):
+        button = page.locator('.capture-button').nth(index)
+        button.click()
+        dialog = page.locator('#testimonial-dialog')
+        require(dialog.evaluate('(e) => e.open'), 'Original image dialog opens')
+        full = page.locator('#testimonial-full-image')
+        full.evaluate('(e) => e.decode()')
+        require(full.get_attribute('src') == f'assets/testimonios/testimonio-{index+1}.jpg', 'Correct full original')
+        require(page.locator('#testimonial-close').evaluate('(e) => e === document.activeElement'), 'Dialog receives focus')
+        page.keyboard.press('Tab')
+        require(page.evaluate('document.getElementById("testimonial-dialog").contains(document.activeElement)'), 'Modal traps focus')
+        panel = page.locator('.dialog-image-scroll')
+        panel.evaluate('(e) => e.scrollTop = e.scrollHeight')
+        frame_box = page.locator('#testimonial-image-frame').bounding_box()
+        require(frame_box['y'] + frame_box['height'] <= panel.bounding_box()['y'] + panel.bounding_box()['height'] + 1, 'Full message bottom reachable by scrolling')
+        original_width = page.locator('#testimonial-image-frame').bounding_box()['width']
+        page.locator('#testimonial-zoom').click()
+        require(page.locator('#testimonial-zoom').get_attribute('aria-pressed') == 'true', 'Readable zoom state')
+        require(page.locator('#testimonial-image-frame').bounding_box()['width'] > original_width * 1.5, 'Zoom enlarges original text')
+        require(page.evaluate('document.documentElement.scrollWidth <= innerWidth'), 'Zoom confined to modal')
+        if index == 1:
+            require(page.locator('#testimonial-image-frame .capture-redaction').count() == 1, 'Author mask appears in full image')
+        if index in [2,3]:
+            frame=page.locator('#testimonial-image-frame')
+            require(frame.evaluate('(e) => Number(getComputedStyle(e).getPropertyValue("--capture-height"))') < full.evaluate('(e) => e.naturalHeight'), 'Identifying reaction strip excluded')
+        page.keyboard.press('Escape')
+        page.wait_for_function('!document.getElementById("testimonial-dialog").open && !document.body.classList.contains("modal-open")')
+        require(button.evaluate('(e) => e === document.activeElement'), 'Focus returns to trigger')
+    page.locator('.capture-button').first.click()
+    require(page.locator('#testimonial-zoom').get_attribute('aria-pressed') == 'false', 'Zoom resets on reopen')
     page.locator('#testimonial-close').click()
-    require(not dialog.evaluate('(e) => e.open'), 'Close button works')
+    require(not page.locator('#testimonial-dialog').evaluate('(e) => e.open'), 'Close button works')
+
+
+def record_motion(page):
+    page.add_init_script('''window.entryAnimations = [];
+      const original = Element.prototype.animate;
+      Element.prototype.animate = function(frames, options) {
+        window.entryAnimations.push({element: this, duration: options.duration});
+        return original.call(this, frames, options);
+      };''')
+
+
+def check_motion(page):
+    card = page.locator('.stage-card').first
+    card.scroll_into_view_if_needed()
+    page.wait_for_function('document.querySelector(".stage-card").dataset.reveal === "played"')
+    page.wait_for_timeout(800)
+    require(page.evaluate('window.entryAnimations.some(a => a.duration >= 500 && a.duration <= 650)'), 'Discreet entry motion executed')
+    before=page.evaluate('window.entryAnimations.filter(a => a.element === document.querySelector(".stage-card")).length')
+    page.locator('h1').scroll_into_view_if_needed()
+    card.scroll_into_view_if_needed()
+    page.wait_for_timeout(150)
+    require(before == 1 and page.evaluate('window.entryAnimations.filter(a => a.element === document.querySelector(".stage-card")).length') == before, 'Entry animation runs once')
+
+
+def check_touch(browser,url):
+    page=browser.new_page(viewport={'width':390,'height':844},is_mobile=True,has_touch=True)
+    ready(page,url)
+    track=page.locator('#testimonials-track')
+    track.scroll_into_view_if_needed()
+    page.wait_for_timeout(800)
+    rectangle=track.bounding_box()
+    y=rectangle['y']+min(rectangle['height']/2,70)
+    session=page.context.new_cdp_session(page)
+    session.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':300,'y':y}]})
+    for x in [270,240,210,180,150,120,90,60]:
+        session.send('Input.dispatchTouchEvent',{'type':'touchMove','touchPoints':[{'x':x,'y':y}]})
+        page.wait_for_timeout(35)
+    session.send('Input.dispatchTouchEvent',{'type':'touchEnd','touchPoints':[]})
+    page.wait_for_function('document.getElementById("testimonials-track").scrollLeft > 50')
     page.close()
 
 
@@ -163,31 +227,38 @@ def main():
     results=[]
     with server() as url, sync_playwright() as p:
         browser=p.chromium.launch(headless=True, executable_path='/usr/bin/chromium')
-        for width in [360,390,768,1440,767,1024]:
+        for width in [360,390,430,768,1440,767,1024]:
             page=browser.new_page(viewport={'width':width,'height':900})
             errors=[]
             page.on('pageerror', lambda error: errors.append(str(error)))
+            record_motion(page)
             ready(page, url)
             check_content(page)
             check_layout(page,width)
             check_interactions(page)
+            check_dialog(page)
+            check_motion(page)
             require(not errors, f'No JavaScript exceptions: {errors}')
-            if args.screenshots and width in [360,390,768,1440]:
+            if args.screenshots and width in [360,390,430,768,1440]:
                 for image in page.locator('img[loading="lazy"]').all():
+                    if not image.is_visible():
+                        continue
                     image.scroll_into_view_if_needed()
                     image.evaluate('(e) => e.decode()')
                 page.evaluate('document.getElementById("testimonials-track").scrollTo({left:0,behavior:"instant"})')
                 page.locator('.accordion details[open]').evaluate_all('(els) => els.forEach(e => e.open = false)')
                 page.evaluate('window.scrollTo({top:0,behavior:"instant"})')
                 page.screenshot(path=str(args.screenshots/f'landing-{width}.png'),full_page=True)
-                for selector,label in [('.hero','hero'),('.mentor-grid','mentor'),('.plans-grid','planes'),('.stages','etapas')]:
+                for selector,label in [('.hero','hero'),('.mentor-grid','mentor'),('.plans-grid','planes'),('.stages','etapas'),('.objection','objecion'),('.foundation','fundamento'),('.testimonials','testimonios')]:
                     page.locator(selector).screenshot(path=str(args.screenshots/f'{label}-{width}.png'))
-            results.append(f'PASS {width}px: content, layout, navigation, VIP/FAQ keyboard and carousel')
+            results.append(f'PASS {width}px: content, real captures/illustrations, layout, keyboard, carousel, all five modals/zoom and one-shot motion')
             page.close()
         reduced=browser.new_page(reduced_motion='reduce')
+        record_motion(reduced)
         ready(reduced,url)
         require(reduced.evaluate('getComputedStyle(document.documentElement).scrollBehavior') == 'auto', 'Reduced-motion scrolling')
         check_interactions(reduced)
+        require(reduced.evaluate('window.entryAnimations.length === 0'), 'No entry motion with reduced motion')
         reduced.close()
         results.append('PASS reduced motion')
         nojs=browser.new_page(java_script_enabled=False, viewport={'width':390,'height':844})
@@ -197,10 +268,22 @@ def main():
         nojs.locator('.vip-details summary').click()
         require(nojs.locator('.vip-details').evaluate('(e) => e.open'), 'Native details works without JS')
         require(nojs.evaluate('document.documentElement.scrollWidth <= innerWidth'), 'No-JS layout')
+        nojs.locator('.capture-fallback summary').first.click()
+        nojs.locator('.capture-fallback img').first.evaluate('(e) => e.decode()')
+        require(nojs.locator('.capture-fallback img').first.evaluate('(e) => e.naturalWidth > 0'), 'Full original readable without JavaScript')
+        require(nojs.locator('.stage-card').first.evaluate('(e) => getComputedStyle(e).opacity') == '1', 'No hidden no-JS content')
         nojs.close()
         results.append('PASS JavaScript disabled')
-        check_dialog(browser,url)
-        results.append('PASS dialog with runtime-only image fixture (original screenshots still pending)')
+        noio=browser.new_page()
+        noio.add_init_script('delete window.IntersectionObserver')
+        ready(noio,url)
+        require(noio.locator('.stage-card').evaluate_all('(els) => els.every(e => getComputedStyle(e).opacity === "1")'), 'Missing observer never hides content')
+        noio.locator('.capture-button').first.click()
+        require(noio.locator('#testimonial-dialog').evaluate('(e) => e.open'), 'Modal functional without observer')
+        noio.close()
+        results.append('PASS without IntersectionObserver: visible content and functional modal')
+        check_touch(browser,url)
+        results.append('PASS native mobile touch swipe')
         browser.close()
     for result in results: print(result)
     print('NOT RUN: live Wistia playback, PayPal checkout totals/transactions; no build/lint package scripts exist.')

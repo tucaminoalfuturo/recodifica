@@ -383,8 +383,32 @@ wistia-player:not(:defined) {
 .foundation {
   background: #e6eadd;
 }
-.foundation .prose {
-  margin-top: 28px;
+.concept-illustration {
+  display: block;
+  width: min(320px, 100%);
+}
+.concept-illustration img {
+  width: 100%;
+  height: auto;
+}
+.objection-intro .concept-illustration {
+  margin: 24px auto 0;
+}
+.foundation-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  align-items: center;
+  gap: 44px;
+  max-width: 960px;
+  margin-inline: auto;
+}
+.foundation .closing-thought {
+  margin-top: 24px;
+}
+.foundation .closing-thought strong,
+.method .closing-thought strong {
+  color: var(--olive-dark);
+  font-weight: 500;
 }
 .closing-thought {
   font-size: 1rem;
@@ -590,7 +614,7 @@ wistia-player:not(:defined) {
   color: var(--ink-soft);
 }
 .capture-button {
-  display: block;
+  display: none;
   width: 100%;
   padding: 0;
   border: 1px solid var(--line);
@@ -600,14 +624,37 @@ wistia-player:not(:defined) {
   background: white;
   text-align: left;
 }
-.capture-button img {
-  width: 100%;
-  height: 240px;
-  object-fit: cover;
-  object-position: top;
-}
-.capture-button span {
+.testimonial-card.is-interactive .capture-button {
   display: block;
+}
+.testimonial-card.is-interactive .capture-fallback {
+  display: none;
+}
+.capture-media {
+  display: block;
+  height: 250px;
+  overflow: hidden;
+  background: #f7f6f1;
+}
+.capture-original {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: var(--capture-width) / var(--capture-height);
+  overflow: hidden;
+}
+.capture-original > img {
+  width: 100%;
+  height: auto;
+}
+.capture-redaction {
+  display: block;
+  position: absolute;
+  background: white;
+}
+.capture-caption {
+  display: block;
+  min-height: 48px;
   padding: 12px;
   color: var(--olive-dark);
   font-size: 0.8rem;
@@ -798,11 +845,28 @@ dialog::backdrop {
 }
 .dialog-header h2 {
   font-size: 1.05rem;
+  flex: 1;
+}
+dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+.dialog-header {
+  flex-shrink: 0;
+}
+.dialog-zoom {
+  min-height: 48px;
+  padding: 10px 12px;
+  font-size: 0.75rem;
 }
 .dialog-image-scroll {
   overflow: auto;
-  max-height: calc(100dvh - 115px);
+  min-height: 0;
+  flex: 1;
   padding: 0 16px 16px;
+}
+.dialog-image-scroll.is-zoomed .capture-original {
+  width: 160%;
 }
 .dialog-image-scroll img {
   width: 100%;
@@ -846,6 +910,28 @@ body.modal-open {
   }
 }
 @media (max-width: 767px) {
+  .concept-illustration {
+    width: min(240px, 75%);
+    margin-inline: auto;
+  }
+  .objection-intro .concept-illustration {
+    margin-top: 18px;
+  }
+  .foundation-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .capture-media {
+    height: 210px;
+  }
+  .dialog-header {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .dialog-zoom {
+    order: 3;
+    width: 100%;
+  }
   .site-header {
     min-height: 76px;
   }
@@ -987,6 +1073,31 @@ body.modal-open {
     flex-basis: 100%;
   }
 }
+@media (hover: hover) and (pointer: fine) {
+  .stage-card,
+  .resource-card,
+  .testimonial-card,
+  .plan-card {
+    transition:
+      transform 0.2s ease-out,
+      box-shadow 0.2s ease-out;
+  }
+  .stage-card:hover,
+  .resource-card:hover,
+  .testimonial-card:hover,
+  .plan-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px #2932260a;
+  }
+  .icon-button {
+    transition:
+      background 0.2s,
+      transform 0.2s;
+  }
+  .icon-button:not(:disabled):hover {
+    transform: translateY(-1px);
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -996,5 +1107,6 @@ body.modal-open {
   *::after {
     animation: none !important;
     transition: none !important;
+    transform: none !important;
   }
 }

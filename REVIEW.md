@@ -1,7 +1,9 @@
 # Revisión de la segunda edición
 
-Rama: `redesign/segunda-edicion`. Cambios locales para revisión, sin push, merge ni
-despliegue. La página de bienvenida y la confirmación de pagos quedan fuera de alcance.
+Rama exclusiva: `redesign/segunda-edicion`. Refinamiento sobre los recursos
+incorporados por el usuario en `779f72b`, para revisión mediante Vercel Preview.
+Sin merge a `main` ni promoción a producción. La página de bienvenida y la
+confirmación de pagos quedan fuera de alcance.
 
 ## Desarrollo local
 
@@ -31,10 +33,12 @@ una sola vez; el FAQ remite a la portada.
   `J62F4J94WSUUS` y USD 100 para `KCD2MNCN69K6C`. No se iniciaron transacciones.
 - **WhatsApp:** se conserva el número del código original, `59897988262`, con el
   mensaje solicitado. Se comprobó la URL y su codificación, sin enviar mensajes.
-- **Testimonios:** cinco extractos exactos y carrusel manual completos; archivos
-  originales pendientes. Ver `Mi-web/assets/testimonios/README.md`. El modal está
-  preparado y probado con una imagen de prueba inyectada únicamente en el navegador.
-  Esa imagen nunca se guarda o presenta como un testimonio.
+- **Testimonios:** cinco originales `.jpg` integrados, en el orden aprobado, con
+  dimensiones reales y extractos intactos. Se verificó visualmente su correspondencia.
+  El modal se probó con cada captura real: desplazamiento, zoom, teclado, Escape
+  y retorno del foco. Los originales permanecen sin modificaciones. El área del
+  autor de la segunda captura y las reacciones con iniciales de la tercera y
+  cuarta se ocultan en la presentación. Ver `Mi-web/assets/testimonios/README.md`.
 
 ## Validación
 
@@ -52,22 +56,47 @@ git diff --check
 El script inicia y cierra su propio servidor temporal. Comprueba contenido y
 precios, destinos de enlaces, formato 16:9, carga única del embed y su estado de
 fallo, navegación al video, FAQ exclusivo, detalle VIP por teclado y carrusel
-manual en 360, 390, 768, 1440, 767 y 1024 px. También comprueba movimiento reducido,
-la página sin JavaScript y el modal (foco, cierre y retorno al disparador).
+manual en 360, 390, 430, 768, 1440, 767 y 1024 px. En cada ancho prueba los cinco
+modales reales, el zoom, el alcance del final del mensaje, las máscaras de
+anonimización, carga y dimensiones de imágenes y ausencia de overflow. También
+comprueba las entradas de animación una sola vez, movimiento reducido, la página
+sin JavaScript, sin IntersectionObserver y un gesto táctil nativo en móvil.
 Las solicitudes a Wistia se bloquean deliberadamente en esta suite para probar
-el fallo de red; esto no valida reproducción real. Las capturas y resultados se
-guardan fuera del repositorio.
+el fallo de red; esto no valida reproducción real. No se navega al checkout ni
+se realizan transacciones.
 
-Resultado de esta revisión: los seis escenarios responsive y los tres escenarios
-adicionales (movimiento reducido, sin JavaScript y modal con recurso de prueba)
-pasaron. También se comprobó un gesto táctil real en Chromium móvil a 390 px:
-el carrusel avanzó del primer al segundo testimonio. No se registraron excepciones
-de JavaScript en las comprobaciones de la landing. Las capturas de los cuatro
-anchos solicitados están en `/workspace/recodifica-review/`.
+Resultado: los once escenarios de la suite pasaron. Además, se verificaron por
+separado un fallo de carga del script y el cambio de preferencia a movimiento
+reducido con la página abierta. En ambos casos el contenido permaneció accesible.
+No se registraron excepciones de JavaScript. Capturas de los cinco anchos solicitados,
+las secciones principales, modales y resultados en
+`/workspace/recodifica-refinement-review/`, fuera del repositorio.
 
-Antes de publicar: revisar visualmente móvil y escritorio, incorporar los cinco
-originales, comprobar la reproducción real y confirmar los importes/destinos de
-los checkouts. No hay una URL de preview remota generada por este trabajo.
+Antes de publicar: revisar el nuevo Preview en computadora y celular, comprobar
+la reproducción real y confirmar los importes de los checkouts. El push se limita
+a la rama de revisión; el estado del deployment se consulta en Vercel, en
+Deployments, filtrando `redesign/segunda-edicion` y abriendo la última versión Preview.
+
+## Refinamiento visual
+
+Los cuatro bloques anteriores al método usan los nuevos textos aprobados. Se
+conservan hero, mentor, las etapas, los cinco recursos, precios, FAQ, cierre y
+configuración comercial. La primera ilustración se ubica debajo del título de
+la objeción; la segunda acompaña el texto de conciencia. En escritorio miden
+320 px de ancho y en móvil hasta 240 px. Ambas mantienen proporción y transparencia,
+sin filtros, nuevos fondos, sombras ni resplandores añadidos.
+
+Las entradas usan IntersectionObserver y Web Animations: opacidad, 14 px de
+movimiento, 560 ms y 100 ms de separación entre tarjetas relacionadas. Se ejecutan
+una sola vez. El estilo inicial del contenido siempre es visible; solo se anima
+cuando entra en pantalla. El modo de movimiento reducido omite los efectos y
+cancela los que estuvieran en ejecución. Hover discreto solo para dispositivos
+con mouse: elevación de 2 px en tarjetas y respuesta en controles del carrusel.
+No se añadieron bibliotecas.
+
+Las capturas tienen vistas previas de 250 px en escritorio y 210 px en móvil,
+sin deformación. La imagen completa se lee en el modal con scroll y zoom. Si el
+script no carga, un `details` nativo permite leer cada testimonio completo.
 
 ## Recursos optimizados
 
@@ -75,6 +104,11 @@ Las fotografías originales se conservan sin cambios. Ambas eran PNG aunque sus
 nombres terminaban en `.jpg`. Las versiones WebP nuevas pesan 88.050 bytes (hero,
 1122 × 1402) y 32.020 bytes (mentor, 720 × 900), frente a 3.853.351 bytes originales
 en conjunto. El hero tiene prioridad de carga y el mentor carga diferida.
+
+Las ilustraciones PNG originales se conservan intactas. Las versiones WebP
+transparentes nuevas miden 680 × 453 y pesan 95.836 bytes (`reaccion-consciente`)
+y 68.312 bytes (`nueva-percepcion`), frente a 3.584.602 bytes de los PNG. Cargan
+de forma diferida y se reserva su proporción.
 
 Montserrat se sirve localmente como WOFF2 variable latino (regular e itálica),
 con `font-display: swap`. Fuente: `@fontsource-variable/montserrat@5.3.0`, obtenida

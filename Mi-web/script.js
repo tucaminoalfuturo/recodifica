@@ -135,39 +135,55 @@
     if (config)
       config.testimonials.forEach(function (item, index) {
         if (!item.src || !item.publicationApproved || !cards[index]) return;
-        var button = document.createElement("button");
-        button.className = "capture-button";
-        button.type = "button";
-        button.setAttribute("aria-haspopup", "dialog");
-        button.setAttribute(
-          "aria-label",
-          "Ampliar captura original: " + item.label,
-        );
-        var image = document.createElement("img");
-        image.src = item.src;
-        image.alt = item.alt;
-        image.width = item.width;
-        image.height = item.height;
-        image.loading = "lazy";
-        image.decoding = "async";
-        var caption = document.createElement("span");
-        caption.textContent = "Ver captura completa";
-        button.append(image, caption);
+        var button = cards[index].querySelector(".capture-button");
+        if (!button) return;
         button.addEventListener("click", function () {
           returnFocus = button;
           fullImage.src = item.src;
           fullImage.alt = item.alt;
           fullImage.width = item.width;
           fullImage.height = item.height;
+          var frame = document.getElementById("testimonial-image-frame");
+          var visibleHeight = item.displayHeight || item.height;
+          frame.style.setProperty("--capture-width", item.width);
+          frame.style.setProperty("--capture-height", visibleHeight);
+          frame.querySelectorAll(".capture-redaction").forEach(function (mask) {
+            mask.remove();
+          });
+          (item.redactions || []).forEach(function (region) {
+            var mask = document.createElement("span");
+            mask.className = "capture-redaction";
+            mask.setAttribute("aria-hidden", "true");
+            mask.style.left = (region.x / item.width) * 100 + "%";
+            mask.style.top = (region.y / visibleHeight) * 100 + "%";
+            mask.style.width = (region.width / item.width) * 100 + "%";
+            mask.style.height = (region.height / visibleHeight) * 100 + "%";
+            frame.appendChild(mask);
+          });
           document.getElementById("testimonial-dialog-title").textContent =
             item.label;
           dialog.showModal();
           document.body.classList.add("modal-open");
           document.getElementById("testimonial-close").focus();
           document.querySelector(".dialog-image-scroll").scrollTop = 0;
+          document.querySelector(".dialog-image-scroll").scrollLeft = 0;
+          resetZoom();
         });
-        cards[index].appendChild(button);
+        // Native details is the fallback until this card has a working trigger.
+        cards[index].classList.add("is-interactive");
       });
+    var zoom = document.getElementById("testimonial-zoom");
+    var imageScroll = document.querySelector(".dialog-image-scroll");
+    function resetZoom() {
+      imageScroll.classList.remove("is-zoomed");
+      zoom.setAttribute("aria-pressed", "false");
+      zoom.textContent = "Ampliar texto";
+    }
+    zoom.addEventListener("click", function () {
+      var enlarged = imageScroll.classList.toggle("is-zoomed");
+      zoom.setAttribute("aria-pressed", String(enlarged));
+      zoom.textContent = enlarged ? "Ajustar a pantalla" : "Ampliar texto";
+    });
     document
       .getElementById("testimonial-close")
       .addEventListener("click", function () {
@@ -204,6 +220,74 @@
     update();
   }
 
+  function initMotion() {
+    // Animate only after an element is visible. No CSS or JS ever hides pending
+    // content: unsupported/failed observers and disabled JS keep it readable.
+    if (
+      reducedMotion.matches ||
+      typeof IntersectionObserver !== "function" ||
+      typeof Element.prototype.animate !== "function"
+    )
+      return;
+    var animations = new Set();
+    var delays = new Map();
+    document
+      .querySelectorAll(".stages, .resources, .testimonials-track, .plans-grid")
+      .forEach(function (group) {
+        Array.from(group.children).forEach(function (card, index) {
+          delays.set(card, (index % 3) * 100);
+        });
+      });
+    var observer;
+    try {
+      observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            observer.unobserve(entry.target);
+            entry.target.dataset.reveal = "played";
+            if (reducedMotion.matches) return;
+            var animation = entry.target.animate(
+              [
+                { opacity: 0, transform: "translateY(14px)" },
+                { opacity: 1, transform: "none" },
+              ],
+              {
+                duration: 560,
+                delay: delays.get(entry.target) || 0,
+                easing: "ease-out",
+                fill: "backwards",
+              },
+            );
+            animations.add(animation);
+            animation.finished
+              .catch(function () {})
+              .then(function () {
+                animations.delete(animation);
+              });
+          });
+        },
+        { threshold: 0.08, rootMargin: "0px 0px -24px 0px" },
+      );
+    } catch (error) {
+      return;
+    }
+    document
+      .querySelectorAll(
+        "main h2, .concept-illustration, .stage-card, .resource-card, .testimonial-card, .plan-card",
+      )
+      .forEach(function (element) {
+        observer.observe(element);
+      });
+    reducedMotion.addEventListener("change", function (event) {
+      if (!event.matches) return;
+      observer.disconnect();
+      animations.forEach(function (animation) {
+        animation.cancel();
+      });
+    });
+  }
+
   // Native details supplies keyboard interaction and state without custom ARIA.
   // Keep one FAQ open at a time, including browsers without details[name].
   document.querySelectorAll(".accordion details").forEach(function (item) {
@@ -220,4 +304,5 @@
   initLinks();
   initVideo();
   initTestimonials();
+  initMotion();
 })();
