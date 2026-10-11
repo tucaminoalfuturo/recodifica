@@ -2,8 +2,9 @@
 
 Rama exclusiva: `redesign/segunda-edicion`. Refinamiento sobre los recursos
 incorporados por el usuario en `779f72b`, para revisión mediante Vercel Preview.
-Sin merge a `main` ni promoción a producción. La página de bienvenida y la
-confirmación de pagos quedan fuera de alcance.
+Sin merge a `main` ni promoción a producción. Esta revisión también incorpora
+los ajustes finales de contenido y una página de bienvenida para ambos planes.
+La verificación de pagos continúa siendo personal, fuera del sitio.
 
 ## Desarrollo local
 
@@ -49,7 +50,9 @@ y Chromium disponibles en el entorno:
 ```sh
 node --check Mi-web/config.js
 node --check Mi-web/script.js
-python3 tools/check_landing.py --screenshots /tmp/recodifica-review
+PYTHONDONTWRITEBYTECODE=1 python3 tools/check_landing.py --screenshots /tmp/recodifica-review
+node --check Mi-web/bienvenida/script.js
+PYTHONDONTWRITEBYTECODE=1 python3 tools/check_welcome.py --screenshots /tmp/recodifica-review
 git diff --check
 ```
 
@@ -70,7 +73,7 @@ separado un fallo de carga del script y el cambio de preferencia a movimiento
 reducido con la página abierta. En ambos casos el contenido permaneció accesible.
 No se registraron excepciones de JavaScript. Capturas de los cinco anchos solicitados,
 las secciones principales, modales y resultados en
-`/workspace/recodifica-refinement-review/`, fuera del repositorio.
+`/workspace/recodifica-welcome-review/`, fuera del repositorio.
 
 Antes de publicar: revisar el nuevo Preview en computadora y celular, comprobar
 la reproducción real y confirmar los importes de los checkouts. El push se limita
@@ -120,3 +123,49 @@ sha512-7PaZoxaxrWLAyrhO46v65An9LhUhfkTExWLhfbywYZCnZEgg/W1rEHnlNmZKjNZ3nJTVYyicq
 
 Licencia OFL incluida en `Mi-web/assets/fonts/LICENSE`. No se añadieron paquetes
 al proyecto, píxeles, trackers ni un SDK de pago.
+
+## Ajustes finales y bienvenida
+
+La introducción del video y su llamada centrada se actualizaron con los textos
+solicitados. La llamada usa Montserrat semibold, 15–17 px y el oliva oscuro de
+la marca para conservar contraste. La flecha permanece estática. Se eliminó
+el texto sobre los 20 minutos, sin otro texto debajo del reproductor. Los
+párrafos editoriales ya no terminan con punto; las oraciones internas conservan
+su puntuación. Los extractos y originales de testimonios y su contexto siguen
+intactos. Se eliminaron las promesas de audios diarios, se corrigió el nombre
+visible y accesible a Sebastián Baracco y se actualizó Instagram a
+`https://www.instagram.com/sebasbaracco`. Precios, PayPal y Wistia se conservan.
+
+La nueva página está en `Mi-web/bienvenida/index.html`, acompañada por sus
+propios `styles.css` y `script.js`. Reutiliza `/styles.css`, las variables de la
+marca, el logotipo, el botón y Montserrat local. No carga el script de la landing
+ni el reproductor. Vercel sirve `/bienvenida` mediante una reescritura a
+`/bienvenida/index.html` en el archivo existente `Mi-web/vercel.json`; no se
+creó otro proyecto. El servidor local sirve el mismo directorio estático con
+una redirección normal de `/bienvenida` a `/bienvenida/`, sin errores 404.
+Los recursos usan rutas desde la raíz para funcionar en ambos casos.
+
+Es una sola página para Básico y VIP. El botón usa el número de
+`RECODIFICA_CONFIG.whatsapp.number`, actualmente `59897988262`, con el nuevo
+mensaje completo y sus saltos de línea. El nombre queda vacío y el campo de
+plan ofrece Básico / VIP para que la participante lo edite en WhatsApp y
+adjunte su comprobante manualmente. El HTML contiene un enlace equivalente
+para fallos o ausencia de JavaScript. No se envían mensajes automáticamente.
+La apertura de la página y los parámetros de URL nunca confirman un pago ni
+asignan acceso a Telegram. El tercer paso comunica la verificación personal.
+
+`tools/check_welcome.py` comprueba la ruta directa, los recursos locales, carga
+real de Montserrat, contenido, tamaños del título, controles y ausencia de
+scroll horizontal en los cinco anchos. Prueba foco visible, Enter y apertura
+del destino de WhatsApp mediante navegación interceptada, con el mensaje y
+número correctos. También verifica el enlace sin JavaScript, con fallos de
+ambos scripts y con movimiento reducido, usando parámetros de URL ficticios
+para asegurar que no infieren datos. Los nueve escenarios pasaron. No valida
+la entrega de mensajes en la aplicación externa ni un deployment real.
+
+Para revisar: abrir el último **Preview** de `redesign/segunda-edicion` en
+Vercel → Deployments → Ready → Visit, y agregar `/bienvenida` a su dominio.
+La raíz del mismo Preview muestra la landing. La URL definitiva de producción
+no es la vista previa de esta tarea. Antes de publicar, revisar ambas páginas
+en ese Preview. El retorno de PayPal se configurará posteriormente, cuando la
+ruta se publique y se confirme que funciona en producción; no se cambió ahora.

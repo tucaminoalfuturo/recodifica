@@ -353,11 +353,14 @@ wistia-player:not(:defined) {
   background: center / cover no-repeat
     url("https://fast.wistia.com/embed/medias/ruy9yzgati/swatch");
 }
-.video-note {
+.section-heading > p.video-callout {
+  color: var(--olive-dark);
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: clamp(0.9375rem, 0.88rem + 0.25vw, 1.0625rem);
+  letter-spacing: 0.035em;
   text-align: center;
-  font-size: 0.8rem;
-  color: var(--ink-soft);
-  margin-top: 16px;
+  margin-top: 24px;
 }
 .video-error {
   font-size: 0.9rem;
