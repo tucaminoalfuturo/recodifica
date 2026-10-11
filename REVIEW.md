@@ -1,10 +1,9 @@
 # Revisión de la segunda edición
 
-Rama exclusiva: `redesign/segunda-edicion`. Refinamiento sobre los recursos
-incorporados por el usuario en `779f72b`, para revisión mediante Vercel Preview.
-Sin merge a `main` ni promoción a producción. Esta revisión también incorpora
-los ajustes finales de contenido y una página de bienvenida para ambos planes.
-La verificación de pagos continúa siendo personal, fuera del sitio.
+Rama de trabajo: `feature/inscripcion-whatsapp`, creada desde `origin/main`
+(`dacfe44`, merge del PR #1). Conserva la segunda edición completa, incluidas
+ilustraciones, testimonios y `/bienvenida`. El usuario autorizó esta actualización
+y su publicación, condicionadas a las verificaciones del PR y de Vercel.
 
 ## Desarrollo local
 
@@ -28,12 +27,15 @@ una sola vez; el FAQ remite a la portada.
   falla la carga. La política de red del entorno rechazó las consultas HTTPS a
   `fast.wistia.com`: reproducción, pausa y ajustes efectivos deben revisarse con
   acceso a Wistia antes de publicar. No se simuló reproducción en las pruebas.
-- **PayPal:** los dos enlaces proporcionados están asociados a Básico y VIP, con
-  apertura segura en otra pestaña. La política de red rechazó consultas HTTPS a
+- **PayPal:** los dos destinos originales permanecen en `config.js` para envío
+  personal después de conversar por WhatsApp. La landing ya no expone precios
+  ni botones de pago directo. La política de red rechazó consultas HTTPS a
   `www.paypal.com`: verificar manualmente que el checkout muestre USD 50 para
   `J62F4J94WSUUS` y USD 100 para `KCD2MNCN69K6C`. No se iniciaron transacciones.
 - **WhatsApp:** se conserva el número del código original, `59897988262`, con el
-  mensaje solicitado. Se comprobó la URL y su codificación, sin enviar mensajes.
+  mensaje nuevo de conversación solicitado. El CTA central, el CTA final y el
+  enlace del FAQ abren el mismo destino con ese mensaje. Se probó la apertura
+  por teclado mediante navegación interceptada, sin enviar mensajes.
 - **Testimonios:** cinco originales `.jpg` integrados, en el orden aprobado, con
   dimensiones reales y extractos intactos. Se verificó visualmente su correspondencia.
   El modal se probó con cada captura real: desplazamiento, zoom, teclado, Escape
@@ -57,7 +59,8 @@ git diff --check
 ```
 
 El script inicia y cierra su propio servidor temporal. Comprueba contenido y
-precios, destinos de enlaces, formato 16:9, carga única del embed y su estado de
+ausencia de precios y checkout público, conservación de destinos de pago en
+configuración, navegación a la conversación y al video, formato 16:9, carga única del embed y su estado de
 fallo, navegación al video, FAQ exclusivo, detalle VIP por teclado y carrusel
 manual en 360, 390, 430, 768, 1440, 767 y 1024 px. En cada ancho prueba los cinco
 modales reales, el zoom, el alcance del final del mensaje, las máscaras de
@@ -73,12 +76,11 @@ separado un fallo de carga del script y el cambio de preferencia a movimiento
 reducido con la página abierta. En ambos casos el contenido permaneció accesible.
 No se registraron excepciones de JavaScript. Capturas de los cinco anchos solicitados,
 las secciones principales, modales y resultados en
-`/workspace/recodifica-welcome-review/`, fuera del repositorio.
+`/workspace/recodifica-whatsapp-review/`, fuera del repositorio.
 
-Antes de publicar: revisar el nuevo Preview en computadora y celular, comprobar
-la reproducción real y confirmar los importes de los checkouts. El push se limita
-a la rama de revisión; el estado del deployment se consulta en Vercel, en
-Deployments, filtrando `redesign/segunda-edicion` y abriendo la última versión Preview.
+Antes de fusionar: comprobar PR sin conflictos y controles requeridos correctos.
+Después de fusionar: verificar deployment de Vercel Ready y que la URL oficial
+sirva el nuevo flujo. Esos controles remotos no se sustituyen con pruebas locales.
 
 ## Refinamiento visual
 
@@ -134,7 +136,8 @@ párrafos editoriales ya no terminan con punto; las oraciones internas conservan
 su puntuación. Los extractos y originales de testimonios y su contexto siguen
 intactos. Se eliminaron las promesas de audios diarios, se corrigió el nombre
 visible y accesible a Sebastián Baracco y se actualizó Instagram a
-`https://www.instagram.com/sebasbaracco`. Precios, PayPal y Wistia se conservan.
+`https://www.instagram.com/sebasbaracco`. En esa revisión se conservaron precios, PayPal y Wistia; esta actualización
+oculta los precios públicos y mantiene intactos los destinos técnicos de pago.
 
 La nueva página está en `Mi-web/bienvenida/index.html`, acompañada por sus
 propios `styles.css` y `script.js`. Reutiliza `/styles.css`, las variables de la
@@ -163,9 +166,64 @@ ambos scripts y con movimiento reducido, usando parámetros de URL ficticios
 para asegurar que no infieren datos. Los nueve escenarios pasaron. No valida
 la entrega de mensajes en la aplicación externa ni un deployment real.
 
-Para revisar: abrir el último **Preview** de `redesign/segunda-edicion` en
-Vercel → Deployments → Ready → Visit, y agregar `/bienvenida` a su dominio.
-La raíz del mismo Preview muestra la landing. La URL definitiva de producción
-no es la vista previa de esta tarea. Antes de publicar, revisar ambas páginas
-en ese Preview. El retorno de PayPal se configurará posteriormente, cuando la
-ruta se publique y se confirme que funciona en producción; no se cambió ahora.
+Para revisar esta actualización: abrir el Preview de
+`feature/inscripcion-whatsapp` en Vercel → Deployments → Ready → Visit. La raíz
+muestra la landing y `/bienvenida` sigue disponible con su mensaje posterior a
+la compra sin cambios. La configuración de retorno de PayPal se conserva.
+
+## Inscripción personal por WhatsApp
+
+Las modalidades Básico y VIP mantienen exactamente sus títulos, descripciones,
+prestaciones y detalle VIP. Se retiraron importes, botones de PayPal y notas de
+pago, y se compactaron los espacios reservados. El borde dorado de VIP sigue
+intacto. Se agregó el título y subtítulo nuevos y, inmediatamente debajo de
+ambas tarjetas, un solo bloque central «Antes de elegir, conversemos» con el
+texto, botón y frase de confianza aprobados. El bloque anterior de métodos
+alternativos se eliminó de la presentación.
+
+«Inscribirme» del menú apunta a `#conversemos`. El hero continúa apuntando al
+video. El botón final «CONVERSEMOS SOBRE TU PROCESO» abre WhatsApp directamente.
+Los tres enlaces de conversación tienen fallback HTML y usan el mismo número
+`59897988262` y el mensaje solicitado, codificado correctamente. Se actualizaron
+solo las dos respuestas del FAQ aprobadas por el usuario: diferencia entre
+planes sin importes e inscripción coordinada personalmente. Las demás preguntas,
+respuestas y secciones permanecen intactas.
+
+`script.js` ya no intenta acceder a los dos botones de pago retirados; el resto
+del comportamiento de video, carrusel, modales, FAQ y animaciones no cambió.
+`config.js` conserva exactamente PayPal, teléfono, Wistia, fecha y testimonios;
+solo cambia el mensaje de consulta de la landing. La bienvenida construye su
+propio mensaje posterior a la compra y no fue modificada. Los destinos PayPal
+siguen siendo `J62F4J94WSUUS` (Básico) y `KCD2MNCN69K6C` (VIP).
+
+Validación: once escenarios de la landing y nueve de bienvenida pasaron. Incluyen
+360, 390, 430, 768 y 1440 px, más 767 y 1024 px para la landing; enlaces, teclado,
+menú, hero, VIP, FAQ, imágenes, capturas, zoom, movimiento reducido, fallbacks
+sin JavaScript y gesto táctil. Una auditoría adicional contra `dacfe44` confirmó
+la conservación exacta de las secciones protegidas, los beneficios y detalles
+VIP, recursos, rutas y archivos de bienvenida y configuración comercial. La
+geometría verificó tarjetas horizontales en escritorio, apiladas en móvil y
+CTA de 480 px en escritorio/ancho disponible en móvil. Sintaxis JS y
+`git diff --check` también pasaron. No se enviaron mensajes ni pagos.
+
+Verificación externa: inicialmente la red bloqueaba GitHub y la URL oficial con
+`403 Forbidden`. Se guardaron los dominios necesarios y las instrucciones de
+inicio actualizadas; al aplicar la configuración se recuperó el acceso. Se
+confirmó que la versión publicada coincide exactamente con `main` (`dacfe44`).
+El PR #2 está sin conflictos y los controles de su Preview de Vercel terminaron
+correctamente. La URL del Preview muestra «Login – Vercel» y requiere una sesión;
+no se comprobó su contenido mediante acceso público. No
+hay controles requeridos pendientes según GitHub; la API de reglas de `main`
+no informa reglas aplicables. La API administrativa de protección devuelve
+«Resource not accessible by integration»; no se modifica ni se omite protección.
+La fusión normal debe respetar los controles de GitHub, y la publicación final
+se confirma con el deployment Production y la URL oficial. El informe final
+registra el resultado, sin sustituir verificaciones remotas por pruebas locales.
+
+La SDK y el módulo oficiales de Wistia respondieron HTTP 200 con verificación
+TLS mediante urllib. La reproducción real no pudo validarse con Chromium:
+el certificado del proxy devuelve `ERR_CERT_AUTHORITY_INVALID`. No se omitió
+la verificación de certificados. La suite local comprueba estructura, carga
+y fallback del embed, mientras que Wistia se conserva intacto respecto a la
+versión publicada. No se comprobó la entrega en la aplicación real de WhatsApp;
+los destinos, número y mensajes sí se probaron mediante navegación interceptada.

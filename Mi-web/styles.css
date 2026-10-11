@@ -691,28 +691,16 @@ wistia-player:not(:defined) {
   border-color: var(--gold);
   background: #fbf9f2;
 }
-.plan-price {
-  font-size: 3.75rem;
-  font-weight: 500;
-  letter-spacing: -0.07em;
-  line-height: 1.1;
-}
-.plan-price span {
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: 0;
-  vertical-align: middle;
-}
 .plan-description {
-  margin-top: 16px;
-  min-height: 84px;
+  margin-top: 12px;
+  min-height: 52px;
   font-size: 1rem;
   color: var(--ink-soft);
 }
 .plan-features {
   list-style: none;
-  padding: 24px 0 0;
-  margin: 12px 0 28px;
+  padding: 20px 0 0;
+  margin: 20px 0 0;
   border-top: 1px solid var(--line);
 }
 .plan-features li {
@@ -729,17 +717,6 @@ wistia-player:not(:defined) {
   position: absolute;
   left: 0;
   color: var(--olive-dark);
-}
-.plan-button {
-  width: 100%;
-  padding-inline: 12px;
-  gap: 8px;
-}
-.payment-note {
-  text-align: center;
-  font-size: 0.68rem;
-  color: var(--ink-soft);
-  margin-top: 12px;
 }
 details {
   border-bottom: 1px solid var(--line);
@@ -789,16 +766,26 @@ details[open] > summary::after {
   font-size: 0.9rem;
   padding-bottom: 0;
 }
-.alternative-payment {
-  margin-inline: auto;
+.conversation {
   margin-top: 36px;
 }
-.alternative-payment h3 {
-  font-size: 1.15rem;
+.conversation h3 {
+  font-size: clamp(1.5rem, 1.2rem + 0.8vw, 1.8rem);
 }
-.alternative-payment p {
-  margin-block: 14px 20px;
+.conversation > p:not(.conversation-trust) {
+  max-width: 680px;
+  margin: 16px auto 22px;
   font-size: 1rem;
+  color: var(--ink-soft);
+}
+.conversation .button {
+  width: min(480px, 100%);
+  min-height: 52px;
+  gap: 12px;
+}
+.conversation-trust {
+  margin-top: 14px;
+  font-size: 0.8125rem;
   color: var(--ink-soft);
 }
 .faq {
@@ -964,7 +951,7 @@ body.modal-open {
     margin-block: 18px 22px;
   }
   .hero .button,
-  .alternative-payment .button,
+  .conversation .button,
   .closing .button {
     width: 100%;
   }
@@ -1061,9 +1048,6 @@ body.modal-open {
   }
   .plan-description {
     min-height: 0;
-  }
-  .plan-price {
-    font-size: 3.5rem;
   }
   .plan-features li {
     font-size: 1rem;

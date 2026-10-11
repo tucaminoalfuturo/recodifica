@@ -35,9 +35,9 @@
     />
     <link rel="icon" href="assets/img/favicon.png" type="image/png" />
     <link rel="apple-touch-icon" href="assets/img/favicon.png" />
-    <link rel="stylesheet" href="styles.css?v=segunda-edicion-3" />
-    <script defer src="config.js?v=segunda-edicion-2"></script>
-    <script defer src="script.js?v=segunda-edicion-2"></script>
+    <link rel="stylesheet" href="styles.css?v=inscripcion-whatsapp-1" />
+    <script defer src="config.js?v=inscripcion-whatsapp-1"></script>
+    <script defer src="script.js?v=inscripcion-whatsapp-1"></script>
   </head>
   <body>
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -50,7 +50,7 @@
       >
       <nav aria-label="Navegación principal">
         <a href="#video-entrenamiento">El entrenamiento</a
-        ><a href="#planes" class="nav-enroll"
+        ><a href="#conversemos" class="nav-enroll"
           >Inscribirme
           <svg viewBox="0 0 24 24" class="arrow-icon" aria-hidden="true">
             <path d="M5 19 19 5M5 5h14v14" /></svg
@@ -764,12 +764,14 @@
         <div class="container">
           <div class="section-heading centered">
             <p class="eyebrow">TU PRÓXIMO PASO</p>
-            <h2 id="plans-title">Elegí cómo querés vivir esta experiencia</h2>
+            <h2 id="plans-title">
+              Elegí cómo querés vivir esta transformación
+            </h2>
+            <p>Un mismo entrenamiento, dos niveles de acompañamiento</p>
           </div>
           <div class="plans-grid">
             <article class="plan-card" aria-labelledby="basic-title">
               <h3 class="eyebrow" id="basic-title">BÁSICO</h3>
-              <p class="plan-price"><span>USD</span> 50</p>
               <p class="plan-description">Entrenamiento completo de 30 días</p>
               <ul class="plan-features">
                 <li>Audios de poder.</li>
@@ -778,23 +780,9 @@
                 <li>Workbook con prácticas activas.</li>
                 <li>Grupo privado de Telegram.</li>
               </ul>
-              <a
-                href="https://www.paypal.com/ncp/payment/J62F4J94WSUUS"
-                class="button plan-button"
-                id="paypal-basic"
-                target="_blank"
-                rel="noopener noreferrer"
-                >INSCRIBIRME
-                <svg viewBox="0 0 24 24" class="arrow-icon" aria-hidden="true">
-                  <path d="M5 19 19 5M5 5h14v14" /></svg
-              ></a>
-              <p class="payment-note">
-                Pago único · PayPal · Abre en otra pestaña
-              </p>
             </article>
             <article class="plan-card plan-vip" aria-labelledby="vip-title">
               <h3 class="eyebrow" id="vip-title">VIP</h3>
-              <p class="plan-price"><span>USD</span> 100</p>
               <p class="plan-description">
                 Todo lo del Básico + una experiencia individual de
                 Recodificación Profunda
@@ -818,19 +806,6 @@
                   la sesión para integrar lo vivido.
                 </li>
               </ul>
-              <a
-                href="https://www.paypal.com/ncp/payment/KCD2MNCN69K6C"
-                class="button plan-button"
-                id="paypal-vip"
-                target="_blank"
-                rel="noopener noreferrer"
-                >QUIERO MI EXPERIENCIA VIP
-                <svg viewBox="0 0 24 24" class="arrow-icon" aria-hidden="true">
-                  <path d="M5 19 19 5M5 5h14v14" /></svg
-              ></a>
-              <p class="payment-note">
-                Pago único · PayPal · Abre en otra pestaña
-              </p>
               <details class="vip-details">
                 <summary>
                   Conocé cómo es una sesión de Recodificación Profunda
@@ -882,23 +857,30 @@
               </details>
             </article>
           </div>
-          <div class="alternative-payment centered narrow">
-            <h3>¿Preferís otro medio de pago?</h3>
+          <div class="conversation centered" id="conversemos">
+            <h3>Antes de elegir, conversemos</h3>
             <p>
-              También podés inscribirte mediante Western Union, criptomonedas,
-              transferencia bancaria en Uruguay o Mercado Pago. Escribime por
-              WhatsApp y coordinamos personalmente tu inscripción
+              Quiero conocer qué estás viviendo hoy con tus hijos, escuchar tus
+              inquietudes y ayudarte a descubrir qué modalidad de acompañamiento
+              se adapta mejor a tu momento
             </p>
             <a
-              class="button button-outline"
+              id="conversation-whatsapp"
+              class="button"
               data-whatsapp
-              href="https://wa.me/59897988262?text=Hola%2C%20quiero%20consultar%20por%20otro%20medio%20de%20pago%20para%20Recodific%C3%A1%20tu%20Reactividad"
+              href="https://wa.me/59897988262?text=%C2%A1Hola%20Seba%21%20Estuve%20viendo%20el%20entrenamiento%20Recodific%C3%A1%20tu%20Reactividad%20y%20me%20gustar%C3%ADa%20conversar%20contigo%20para%20conocer%20m%C3%A1s%20sobre%20las%20modalidades%20B%C3%A1sico%20y%20VIP%20y%20saber%20cu%C3%A1l%20ser%C3%ADa%20mejor%20para%20m%C3%AD"
               target="_blank"
               rel="noopener noreferrer"
-              >CONSULTAR POR WHATSAPP
-              <svg viewBox="0 0 24 24" class="arrow-icon" aria-hidden="true">
-                <path d="M5 19 19 5M5 5h14v14" /></svg
-            ></a>
+              ><svg viewBox="0 0 24 24" class="arrow-icon" aria-hidden="true">
+                <path
+                  d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H4l-2 2V11.5A8.5 8.5 0 0 1 10.5 3H12a9 9 0 0 1 9 8.5Z"
+                />
+                <path d="M7 10h10M7 14h7" /></svg
+              >HABLÁ CON SEBA POR WHATSAPP</a
+            >
+            <p class="conversation-trust">
+              Te voy a responder personalmente, sin compromiso
+            </p>
           </div>
         </div>
       </section>
@@ -942,10 +924,9 @@
               <summary>¿Cuál es la diferencia entre Básico y VIP?</summary>
               <div class="details-content">
                 <p>
-                  El Básico cuesta USD 50 e incluye todo el entrenamiento. El
-                  VIP cuesta USD 100 y suma una sesión individual de
-                  Recodificación Profunda de 90 minutos y 3 días de seguimiento
-                  personalizado después de la sesión
+                  El Básico incluye todo el entrenamiento. El VIP suma una
+                  sesión individual de Recodificación Profunda de 90 minutos y 3
+                  días de seguimiento personalizado después de la sesión
                 </p>
               </div>
             </details>
@@ -953,17 +934,16 @@
               <summary>¿Cómo puedo inscribirme y pagar?</summary>
               <div class="details-content">
                 <p>
-                  Podés elegir tu plan y pagar por PayPal. Si preferís Western
-                  Union, criptomonedas, transferencia bancaria en Uruguay o
-                  Mercado Pago,
                   <a
                     data-whatsapp
-                    href="https://wa.me/59897988262?text=Hola%2C%20quiero%20consultar%20por%20otro%20medio%20de%20pago%20para%20Recodific%C3%A1%20tu%20Reactividad"
+                    href="https://wa.me/59897988262?text=%C2%A1Hola%20Seba%21%20Estuve%20viendo%20el%20entrenamiento%20Recodific%C3%A1%20tu%20Reactividad%20y%20me%20gustar%C3%ADa%20conversar%20contigo%20para%20conocer%20m%C3%A1s%20sobre%20las%20modalidades%20B%C3%A1sico%20y%20VIP%20y%20saber%20cu%C3%A1l%20ser%C3%ADa%20mejor%20para%20m%C3%AD"
                     target="_blank"
                     rel="noopener noreferrer"
-                    >escribime por WhatsApp</a
+                    >Escribime por WhatsApp</a
                   >
-                  y coordinamos tu inscripción
+                  para conversar personalmente sobre tu proceso, elegir la
+                  modalidad de acompañamiento y coordinar el pago y tu
+                  inscripción
                 </p>
               </div>
             </details>
@@ -977,10 +957,22 @@
             Una manera diferente de vivir tus emociones puede abrir nuevas
             posibilidades en el vínculo con tus hijos.
           </h2>
-          <a href="#planes" class="button"
-            >ELEGÍ TU EXPERIENCIA
-            <svg viewBox="0 0 24 24" class="arrow-icon" aria-hidden="true">
-              <path d="M12 20V4m-6 6 6-6 6 6" /></svg
+          <a
+            id="closing-whatsapp"
+            class="button"
+            data-whatsapp
+            href="https://wa.me/59897988262?text=%C2%A1Hola%20Seba%21%20Estuve%20viendo%20el%20entrenamiento%20Recodific%C3%A1%20tu%20Reactividad%20y%20me%20gustar%C3%ADa%20conversar%20contigo%20para%20conocer%20m%C3%A1s%20sobre%20las%20modalidades%20B%C3%A1sico%20y%20VIP%20y%20saber%20cu%C3%A1l%20ser%C3%ADa%20mejor%20para%20m%C3%AD"
+            target="_blank"
+            rel="noopener noreferrer"
+            >CONVERSEMOS SOBRE TU PROCESO<svg
+              viewBox="0 0 24 24"
+              class="arrow-icon"
+              aria-hidden="true"
+            >
+              <path
+                d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H4l-2 2V11.5A8.5 8.5 0 0 1 10.5 3H12a9 9 0 0 1 9 8.5Z"
+              />
+              <path d="M7 10h10M7 14h7" /></svg
           ></a>
         </div>
       </section>
