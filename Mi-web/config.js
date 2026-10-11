@@ -12,7 +12,7 @@ window.RECODIFICA_CONFIG = {
   whatsapp: {
     number: "59897988262",
     message:
-      "Hola, quiero consultar por otro medio de pago para Recodificá tu Reactividad",
+      "¡Hola Seba! Estuve viendo el entrenamiento Recodificá tu Reactividad y me gustaría conversar contigo para conocer más sobre las modalidades Básico y VIP y saber cuál sería mejor para mí",
   },
   testimonials: [
     {

@@ -18,8 +18,6 @@
         .format(edition)
         .toUpperCase();
     }
-    document.getElementById("paypal-basic").href = config.paypal.basic;
-    document.getElementById("paypal-vip").href = config.paypal.vip;
     document.querySelectorAll("[data-whatsapp]").forEach(function (link) {
       link.href =
         "https://wa.me/" +

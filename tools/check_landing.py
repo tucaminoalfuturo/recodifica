@@ -17,6 +17,7 @@ from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / 'Mi-web'
+MESSAGE = '¡Hola Seba! Estuve viendo el entrenamiento Recodificá tu Reactividad y me gustaría conversar contigo para conocer más sobre las modalidades Básico y VIP y saber cuál sería mejor para mí'
 H1 = 'Tus hijos no necesitan que seas una madre perfecta. Necesitan que dejes de luchar con tu propia historia.'
 
 class QuietHandler(SimpleHTTPRequestHandler):
@@ -64,20 +65,26 @@ def check_content(page):
         require(image.evaluate('(e) => e.naturalWidth > 0 && e.currentSrc.endsWith(".webp")'), 'Optimized illustration loads')
     require('buscaste acompañamiento' in page.locator('.objection').inner_text(), 'Concise approved objection copy')
     require('podrás seguir aplicando de manera autónoma' in page.locator('.practice-bridge').inner_text(), 'Concise autonomy bridge')
-    require(page.locator('.plan-price').all_inner_texts() == ['USD 50', 'USD 100'], 'Correct visible plan prices')
+    require(page.locator('.plan-card').count() == 2, 'Two original modalities')
+    require(page.locator('.plan-card > h3').all_inner_texts() == ['BÁSICO', 'VIP'], 'Both modality titles')
+    require(page.locator('.plan-features').evaluate_all('(els) => els.every(e => e.children.length === 5)'), 'All five benefits per modality preserved')
+    require('90 minutos' in page.locator('.plan-vip').inner_text() and '3 días' in page.locator('.plan-vip').inner_text(), 'VIP duration and follow-up')
+    require(page.locator('.plan-price, .plan-button, .payment-note, .alternative-payment, a[href*="paypal.com"]').count() == 0, 'No direct checkout, price elements or duplicated payment block')
+    require('USD' not in page.locator('body').text_content(), 'No price in the entire landing, including closed FAQ')
+    require(page.locator('#conversemos').evaluate('(e) => e.previousElementSibling.classList.contains("plans-grid")'), 'Conversation immediately follows both modalities')
+    require(page.locator('.conversation .button').count() == 1, 'Single central conversion CTA')
     require(page.locator('#edition-date').get_attribute('datetime') == '2026-10-14', 'Correct edition date')
     require('Hawkins' in page.locator('.foundation').inner_text(), 'Foundation attribution')
     require(page.locator('body').inner_text().count('Hawkins') == 1, 'One Hawkins mention')
     require('Identidad Creadora' in page.locator('.stages').inner_text(), 'Distinctive method content preserved')
     require(page.locator('main > section').evaluate_all('(els) => els[0].id === "hero" && els[1].id === "video-entrenamiento"'), 'Video immediately follows hero')
-    for selector, suffix in [('#paypal-basic', 'J62F4J94WSUUS'), ('#paypal-vip', 'KCD2MNCN69K6C')]:
-        link = page.locator(selector)
-        require(link.get_attribute('href') == f'https://www.paypal.com/ncp/payment/{suffix}', 'User-supplied PayPal destination')
-        require('noopener' in link.get_attribute('rel') and 'noreferrer' in link.get_attribute('rel'), 'Safe external payment links')
+    require(page.evaluate('window.RECODIFICA_CONFIG.paypal') == {
+        'basic': 'https://www.paypal.com/ncp/payment/J62F4J94WSUUS',
+        'vip': 'https://www.paypal.com/ncp/payment/KCD2MNCN69K6C'}, 'Original private payment destinations preserved in configuration')
     for href in page.locator('[data-whatsapp]').evaluate_all('(els) => els.map(e => e.href)'):
         link = urlsplit(href)
         require(link.netloc == 'wa.me' and link.path == '/59897988262', 'Existing WhatsApp number')
-        require(parse_qs(link.query)['text'][0] == 'Hola, quiero consultar por otro medio de pago para Recodificá tu Reactividad', 'WhatsApp prefilled message')
+        require(parse_qs(link.query)['text'][0] == MESSAGE, 'WhatsApp prefilled conversation message')
     require(page.locator('wistia-player').get_attribute('media-id') == 'ruy9yzgati', 'Real Wistia media ID')
     require(page.locator('wistia-player').get_attribute('auto-play') == 'false', 'No video autoplay')
     require(page.locator('script[src*="player.js"]').count() <= 1, 'No duplicate Wistia SDK')
@@ -87,6 +94,21 @@ def check_content(page):
 
 
 def check_interactions(page):
+    page.locator('.nav-enroll').click()
+    page.wait_for_function('Math.abs(document.getElementById("conversemos").getBoundingClientRect().top - 24) < 4')
+    require(page.url.endswith('#conversemos'), 'Inscribirme routes smoothly to conversation')
+    page.context.route('https://wa.me/**', lambda route: route.fulfill(status=200,content_type='text/html',body='<p>Navigation intercepted for verification</p>'))
+    for selector in ['#conversation-whatsapp', '#closing-whatsapp']:
+        button = page.locator(selector)
+        button.focus()
+        require(button.evaluate('(e) => e === document.activeElement'), 'Conversation CTA reachable by keyboard')
+        with page.expect_popup() as opened:
+            page.keyboard.press('Enter')
+        popup = opened.value
+        popup.wait_for_load_state()
+        parsed = urlsplit(popup.url)
+        require(parsed.netloc == 'wa.me' and parsed.path == '/59897988262' and parse_qs(parsed.query)['text'][0] == MESSAGE, 'CTA opens correct number and exact message')
+        popup.close()
     page.evaluate('window.scrollTo({top:0,behavior:"instant"})')
     page.locator('#hero-cta').click()
     page.wait_for_function('Math.abs(document.getElementById("video-entrenamiento").getBoundingClientRect().top - 24) < 4')
@@ -249,7 +271,7 @@ def main():
                 page.locator('.accordion details[open]').evaluate_all('(els) => els.forEach(e => e.open = false)')
                 page.evaluate('window.scrollTo({top:0,behavior:"instant"})')
                 page.screenshot(path=str(args.screenshots/f'landing-{width}.png'),full_page=True)
-                for selector,label in [('.hero','hero'),('.mentor-grid','mentor'),('.plans-grid','planes'),('.stages','etapas'),('.objection','objecion'),('.foundation','fundamento'),('.testimonials','testimonios')]:
+                for selector,label in [('.hero','hero'),('.mentor-grid','mentor'),('.plans','modalidades'),('.stages','etapas'),('.objection','objecion'),('.foundation','fundamento'),('.testimonials','testimonios')]:
                     page.locator(selector).screenshot(path=str(args.screenshots/f'{label}-{width}.png'))
             results.append(f'PASS {width}px: content, real captures/illustrations, layout, keyboard, carousel, all five modals/zoom and one-shot motion')
             page.close()
@@ -264,7 +286,7 @@ def main():
         nojs=browser.new_page(java_script_enabled=False, viewport={'width':390,'height':844})
         nojs.goto(url,wait_until='networkidle')
         require(nojs.locator('h1').is_visible(), 'Copy available without JS')
-        require(nojs.locator('#paypal-basic').get_attribute('href').endswith('J62F4J94WSUUS'), 'Payment link available without JS')
+        require(parse_qs(urlsplit(nojs.locator('#conversation-whatsapp').get_attribute('href')).query)['text'][0] == MESSAGE, 'Conversation link available without JS')
         nojs.locator('.vip-details summary').click()
         require(nojs.locator('.vip-details').evaluate('(e) => e.open'), 'Native details works without JS')
         require(nojs.evaluate('document.documentElement.scrollWidth <= innerWidth'), 'No-JS layout')
