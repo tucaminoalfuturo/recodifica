@@ -206,11 +206,24 @@ geometría verificó tarjetas horizontales en escritorio, apiladas en móvil y
 CTA de 480 px en escritorio/ancho disponible en móvil. Sintaxis JS y
 `git diff --check` también pasaron. No se enviaron mensajes ni pagos.
 
-Limitación de publicación: el entorno devuelve `403 Forbidden` para
-`api.github.com` y la URL oficial de Vercel. Se guardaron los destinos necesarios
-en el borrador de red y las instrucciones de inicio actualizadas. El borrador
-requiere revisión, guardado y publicación del entorno para habilitar esos
-accesos. Hasta entonces no se pueden confirmar la versión oficial desplegada,
-los controles remotos ni Vercel Ready; no se debe fusionar o afirmar publicación
-sin esa evidencia. La reproducción real de Wistia y la apertura en la aplicación
-real de WhatsApp tampoco se validaron en la suite local.
+Verificación externa: inicialmente la red bloqueaba GitHub y la URL oficial con
+`403 Forbidden`. Se guardaron los dominios necesarios y las instrucciones de
+inicio actualizadas; al aplicar la configuración se recuperó el acceso. Se
+confirmó que la versión publicada coincide exactamente con `main` (`dacfe44`).
+El PR #2 está sin conflictos y los controles de su Preview de Vercel terminaron
+correctamente. La URL del Preview muestra «Login – Vercel» y requiere una sesión;
+no se comprobó su contenido mediante acceso público. No
+hay controles requeridos pendientes según GitHub; la API de reglas de `main`
+no informa reglas aplicables. La API administrativa de protección devuelve
+«Resource not accessible by integration»; no se modifica ni se omite protección.
+La fusión normal debe respetar los controles de GitHub, y la publicación final
+se confirma con el deployment Production y la URL oficial. El informe final
+registra el resultado, sin sustituir verificaciones remotas por pruebas locales.
+
+La SDK y el módulo oficiales de Wistia respondieron HTTP 200 con verificación
+TLS mediante urllib. La reproducción real no pudo validarse con Chromium:
+el certificado del proxy devuelve `ERR_CERT_AUTHORITY_INVALID`. No se omitió
+la verificación de certificados. La suite local comprueba estructura, carga
+y fallback del embed, mientras que Wistia se conserva intacto respecto a la
+versión publicada. No se comprobó la entrega en la aplicación real de WhatsApp;
+los destinos, número y mensajes sí se probaron mediante navegación interceptada.
