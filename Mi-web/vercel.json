@@ -24,5 +24,8 @@
         { "key": "Cache-Control", "value": "public, max-age=2592000" }
       ]
     }
+  ],
+  "rewrites": [
+    { "source": "/bienvenida", "destination": "/bienvenida/index.html" }
   ]
 }
