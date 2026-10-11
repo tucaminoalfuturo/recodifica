@@ -17,7 +17,7 @@ from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / 'Mi-web'
-MESSAGE = '¡Hola Seba! Estuve viendo el entrenamiento Recodificá tu Reactividad y me gustaría conversar contigo para conocer más sobre las modalidades Básico y VIP y saber cuál sería mejor para mí'
+MESSAGE = 'Hola Seba, sentí que este entrenamiento resonó conmigo y quiero más información'
 H1 = 'Tus hijos no necesitan que seas una madre perfecta. Necesitan que dejes de luchar con tu propia historia.'
 
 class QuietHandler(SimpleHTTPRequestHandler):
@@ -152,6 +152,9 @@ def check_interactions(page):
 
 def check_layout(page, width):
     require(page.evaluate('document.documentElement.scrollWidth <= innerWidth'), f'No horizontal overflow at {width}')
+    titles=page.locator('.plan-title').evaluate_all('(els) => els.map(e => ({size:parseFloat(getComputedStyle(e).fontSize),weight:getComputedStyle(e).fontWeight,color:getComputedStyle(e).color}))')
+    require(len(titles) == 2 and all(t['size'] >= 22 and t['weight'] == '700' for t in titles), 'Readable bold modality titles at every viewport')
+    require(titles[0]['color'] != titles[1]['color'], 'Basic ink and VIP gold are distinct')
     require(page.evaluate('document.fonts.check("600 16px Montserrat")'), 'Local Montserrat loaded')
     require(page.locator('.hero-photo img').evaluate('(e) => e.complete && e.naturalWidth > 0'), 'Original optimized hero loads')
     for rect in page.locator('.button, .icon-button, summary').evaluate_all('(els) => els.map(e => ({...e.getBoundingClientRect().toJSON(), visible: !!e.getClientRects().length}))'):
