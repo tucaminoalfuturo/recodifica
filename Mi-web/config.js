@@ -3,7 +3,7 @@
  * identifying reaction badges; redactions conceal the author area, never messages.
  */
 window.RECODIFICA_CONFIG = {
-  editionDate: "2026-10-14",
+  editionDate: "2026-11-25",
   wistiaMediaId: "ruy9yzgati",
   paypal: {
     basic: "https://www.paypal.com/ncp/payment/J62F4J94WSUUS",

@@ -8,7 +8,7 @@
     if (!config) return;
     var date = document.getElementById("edition-date");
     var edition = new Date(config.editionDate + "T12:00:00Z");
-    if (!Number.isNaN(edition.getTime())) {
+    if (date && !Number.isNaN(edition.getTime())) {
       date.dateTime = config.editionDate;
       date.textContent = new Intl.DateTimeFormat("es-UY", {
         day: "numeric",

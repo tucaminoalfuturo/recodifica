@@ -1,4 +1,4 @@
-/* Recodificá tu Reactividad · segunda edición · Montserrat */
+/* Recodificá tu Reactividad · tercera edición · Montserrat */
 @font-face {
   font-family: "Montserrat";
   font-style: normal;
@@ -385,6 +385,25 @@ wistia-player:not(:defined) {
 }
 .foundation {
   background: #e6eadd;
+  padding-block: 72px;
+}
+.foundation .section-heading {
+  max-width: 900px;
+  margin-bottom: 0;
+}
+.foundation h2 {
+  color: var(--olive-dark);
+  font-size: clamp(2.25rem, 2.9vw, 2.625rem);
+}
+.stages-section {
+  padding-top: 44px;
+}
+.stages-heading {
+  text-align: center;
+  margin-bottom: 0;
+}
+.stages-section .stages {
+  margin-top: 24px;
 }
 .concept-illustration {
   display: block;
@@ -910,6 +929,12 @@ body.modal-open {
   }
 }
 @media (max-width: 767px) {
+  .foundation {
+    padding-block: 52px;
+  }
+  .foundation h2 {
+    font-size: clamp(1.625rem, 6.8vw + 0.1rem, 1.9375rem);
+  }
   .concept-illustration {
     width: min(240px, 75%);
     margin-inline: auto;
@@ -995,7 +1020,6 @@ body.modal-open {
     grid-template-columns: 1fr;
     gap: 28px;
   }
-  .foundation .centered,
   .editorial-grid {
     text-align: left;
   }
