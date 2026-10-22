@@ -1,8 +1,8 @@
-# Revisión de la tercera edición — solo Preview
+# Tercera edición — lanzamiento del 25 de noviembre de 2026
 
 Rama `redesign/tercera-edicion`, creada desde el estado publicado de `main`
-(`8f76ee4`, PR #3). Esta tarea autoriza solamente la revisión en Vercel Preview.
-**No hacer merge a `main` ni publicar en producción sin una nueva autorización.**
+(`8f76ee4`, PR #3). El usuario aprobó visualmente esta composición y autorizó su publicación en
+producción después de confirmar la fecha, las pruebas y los controles del PR.
 
 ## Composición
 
@@ -19,14 +19,15 @@ Rama `redesign/tercera-edicion`, creada desde el estado publicado de `main`
   pequeña etiqueta «LAS TRES ETAPAS DEL ENTRENAMIENTO». Se conservan exactamente
   sus textos, iconos, numeración, colores, medidas y distribución responsive.
 - El hero y las vistas sociales dicen tercera edición. La portada muestra
-  «TERCERA EDICIÓN · INSCRIPCIONES ABIERTAS». `editionDate` es `null`; no se
-  inventó una fecha. El script admite la ausencia del elemento de fecha.
+  «3ª EDICIÓN · COMENZAMOS EL 25 DE NOVIEMBRE». `editionDate` y el atributo
+  `datetime` del HTML indican `2026-11-25`; el FAQ confirma el día y el año.
+  El script utiliza UTC y el HTML conserva un fallback sin JavaScript.
 
 El resto de las secciones y recursos permanece intacto, incluidos modalidades,
 WhatsApp y su mensaje, FAQ, Instagram, testimonios, Wistia, PayPal y `/bienvenida`.
 La imagen retirada se conserva como archivo. No se agregan precios ni pagos
-directos públicos. El FAQ se conservó por pedido explícito; su referencia genérica
-a la fecha de portada podrá revisarse junto con la fecha cuando el usuario la confirme.
+directos públicos. Solo se actualizó la referencia de inicio del FAQ para indicar la fecha
+confirmada; las demás preguntas y respuestas se conservan.
 
 ## Desarrollo y verificación
 
@@ -66,7 +67,9 @@ Reducción de altura respecto de producción: 1.516 px en 360, 1.452 px en 390,
 El push de esta rama genera un deployment **Preview**. Consultar el deployment
 del commit de la rama y abrir su URL. El Preview puede exigir una sesión de Vercel;
 la pantalla de login no es una comprobación visual de la landing. No cambiar esa
-protección. La URL oficial sigue correspondiendo a la segunda edición publicada.
+protección. Tras completar las verificaciones y controles, fusionar el PR a `main` y
+confirmar el deployment Production completado y el contenido de la URL oficial.
+No cambiar la configuración de pagos ni promover manualmente otro deployment.
 
 ## Recursos optimizados
 
